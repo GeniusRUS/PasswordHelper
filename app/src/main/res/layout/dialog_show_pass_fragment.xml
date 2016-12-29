@@ -1,0 +1,84 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingStart="@dimen/fab_margin"
+    android:columnCount="2"
+    tools:context="com.genius.project.passwordhelper.OptionPassDetail"
+    android:padding="@dimen/fab_margin"
+    android:paddingBottom="@dimen/fab_margin"
+    android:paddingEnd="@dimen/fab_margin"
+    android:paddingLeft="@dimen/fab_margin"
+    android:paddingRight="@dimen/fab_margin"
+    android:paddingTop="@dimen/fab_margin">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/site"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/site_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/noData"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:paddingStart="@dimen/fab_margin"
+        android:textIsSelectable="true"
+        android:linksClickable="true"
+        android:autoLink="web"
+        android:textSize="18sp"
+        android:layout_gravity="fill_horizontal"
+        android:maxWidth="@dimen/fab_margin" />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/login"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/login_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:hint="@string/noData"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textIsSelectable="true"
+        android:textSize="18sp"
+        android:paddingStart="16dp"
+        android:maxWidth="@dimen/fab_margin" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/pass"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/pass_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:hint="@string/noData"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:paddingStart="@dimen/fab_margin"
+        android:textIsSelectable="true"
+        android:textSize="18sp"
+        android:maxWidth="@dimen/fab_margin" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/info"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/info_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:hint="@string/noData"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:paddingStart="@dimen/fab_margin"
+        android:textIsSelectable="true"
+        android:textSize="18sp"
+        android:maxWidth="@dimen/fab_margin" />
+</GridLayout>

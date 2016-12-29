@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/database_settings"
+        />
+    <Preference
+        android:title="@string/drop_db"
+        android:key="preference_wipe_button"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:summary="@string/wipeBaseDsc" />
+    <Preference
+        android:title="@string/backupDatabaseButton"
+        android:key="backup_button"
+        android:icon="@drawable/ic_content_save_white_24dp"
+        android:summary="@string/backupDatabaseButtonSummary" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="theme_switch"
+        android:icon="@drawable/ic_theme_light_dark_white_24dp"
+        android:title="@string/darkTheme"
+        android:summaryOn="@string/darkThemeOff"
+        android:summaryOff="@string/darkThemeOn" />
+    <PreferenceCategory
+        android:title="@string/security_header" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:title="@string/security_switch_settings"
+        android:summaryOff="@string/security_enable"
+        android:summaryOn="@string/security_disable"
+        android:icon="@drawable/ic_shield_white_24dp"
+        android:key="security_enabler" />
+    <EditTextPreference
+        android:hint="@string/security_second_hint"
+        android:title="@string/security_pin_settings"
+        android:key="preference_auth_time"
+        android:icon="@drawable/ic_lock_white_24dp"
+        android:dependency="security_enabler"
+        android:summary="@string/security_pin_settings_summary"
+        android:defaultValue="30"
+        android:inputType="number" />
+    <PreferenceCategory
+        android:title="@string/info_settings"/>
+    <Preference
+        android:title="@string/about_settings"
+        android:key="preference_about_button"
+        android:icon="@drawable/ic_information_outline_white_24dp"
+        android:summary="@string/about_settings_summary" />
+</PreferenceScreen>

@@ -1,0 +1,108 @@
+<resources>
+
+    <string-array name="dialogOptions">
+        <item name="edit">Edit item</item>
+        <item name="delete">Delete item</item>
+    </string-array>
+
+    <string-array name="search_items">
+        <item name="SITE">Site</item>
+        <item name="LOGIN">Login</item>
+        <item name="PASS">Pass</item>
+        <item name="INFO">Info</item>
+    </string-array>
+
+    <string-array name="sort_type">
+        <item name="by_alphabet">Alphabetical</item>
+        <item name="by_date">By date</item>
+    </string-array>
+
+    <string-array name="sort_order_alpha">
+        <item name="ASC">Ascending</item>
+        <item name="DESC">Descending</item>
+    </string-array>
+
+    <string-array name="sort_order_date">
+        <item name="ASC">Ascending</item>
+        <item name="DESC">Descending</item>
+    </string-array>
+
+    <string name="app_name">PasswordHelper</string>
+    <string name="action_settings">Settings</string>
+    <string name="database_error">Database error!</string>
+    <string name="site">Site</string>
+    <string name="pass">Password</string>
+    <string name="info">Information</string>
+    <string name="enter_new_pass_header">Enter new password</string>
+    <string name="enterPass_button">Done</string>
+    <string name="dismissPass_button">Cancel</string>
+    <string name="addPassHere">Add your password here</string>
+    <string name="addSiteHere">Add site address here</string>
+    <string name="addInfoHere">Here you can add some note</string>
+    <string name="drop_db">Wipe passwords base</string>
+    <string name="dataUpdated">Data has been updated</string>
+    <string name="siteEmptyState">Site not enter. Data not saved</string>
+    <string name="editPassLayer">Edit password</string>
+    <string name="login">Login</string>
+    <string name="addLoginHere">Add login here</string>
+    <string name="confirmAction">Confirm your action</string>
+    <string name="enter">Confirm</string>
+    <string name="deleteError">Error while deleting</string>
+    <string name="updateAfterDelete">Item was deleted and data updated</string>
+    <string name="siteEmpty">Site not enter</string>
+    <string name="noData">No data</string>
+    <string name="search">Search</string>
+    <string name="editPass">Edit pass</string>
+    <string name="wipeBaseDsc">This action will reset database</string>
+    <string name="database_settings">Storage</string>
+    <string name="security_pin_settings">Enter authentication duration</string>
+    <string name="about_settings">About</string>
+    <string name="darkThemeOn">Enable dark theme</string>
+    <string name="darkThemeOff">Disable dark theme</string>
+    <string name="darkTheme">Dark theme</string>
+    <string name="about_settings_summary">Some information</string>
+    <string name="about_desc">Light and fast password storage Genius © 2016</string>
+    <string name="info_settings">Info</string>
+    <string name="security_switch_settings">Security enabler</string>
+    <string name="security_enable">Prevent unautorized access</string>
+    <string name="security_disable">Disable password protect</string>
+    <string name="security_header">Security</string>
+    <string name="security_pin_settings_summary">Don\'t confirm access after last one</string>
+    <string name="security_fingerprint_settings">Fingerprint protect</string>
+    <string name="security_fingerprint_settings_summary">Fast and simple autorize method</string>
+    <string name="search_add_request">Enter your request</string>
+    <string name="search_button">Search</string>
+    <string name="search_header">Find element</string>
+    <string name="search_request_is_empty">Request is empty. Search cancelled</string>
+    <string name="search_result_is">Search completed. Items found:</string>
+    <string name="search_result_is_null">Search can\'t find elements</string>
+    <string name="keystore_keys_invalidated">Keys are invalidated after created. Retry the purchase</string>
+    <string name="keystore_failed_summ_key">Failed to create a symmetric key</string>
+    <string name="secure_header">Confirm you credential</string>
+    <string name="secure_descr">To gain access to the password database, identify yourself</string>
+    <string name="security_second_hint">Value in seconds (1-59 s.)</string>
+    <string name="security_enabled">Security enabled</string>
+    <string name="security_disabled">Security disabled</string>
+    <string name="security_not_set">Your device is not secured</string>
+    <string name="reset">Reset</string>
+    <string name="sort_action">Sorting</string>
+    <string name="sort_header">Sort items</string>
+    <string name="sort_button">Sort</string>
+    <string name="backupDatabaseButton">Backup manager</string>
+    <string name="backupDatabaseButtonSummary">Create/read base at /Download</string>
+    <string name="backup_create">Export backup copy</string>
+    <string name="backup_read">Import backup copy</string>
+    <string name="backup_header">Backup manager</string>
+    <string name="backup_request_permission">Need permission for write bakup to /Download</string>
+    <string name="backup_permission_not_granted">Fail request permission</string>
+    <string name="backup_indicate_prog">"Elements saved: "</string>
+    <string name="backup_indicate_read">"Elements readed: "</string>
+    <string name="backup_delete">Delete backup copy</string>
+    <string name="backup_info">Backup copy info</string>
+    <string name="backup_file_deleted">Backup file has been deleted</string>
+    <string name="backup_info_count">"Quantity of values: "</string>
+    <string name="backup_save_complete">Backup file created and putted in /Download</string>
+    <string name="backup_read_comlete">Database updated with backup file</string>
+    <string name="backup_info_crc">"CRC-summ: "</string>
+    <string name="backup_info_date_changed">"Date changed is: "</string>
+</resources>

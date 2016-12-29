@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dialogOptions">
+        <item name="edit">Редактировать элемент</item>
+        <item name="delete">Удалить элемент</item>
+    </string-array>
+
+    <string-array name="search_items">
+        <item name="SITE">Сайт</item>
+        <item name="LOGIN">Логин</item>
+        <item name="PASS">Пароль</item>
+        <item name="INFO">Инфо</item>
+    </string-array>
+
+    <string-array name="sort_type">
+        <item name="by_alphabet">Алфавитный порядок</item>
+        <item name="by_date">Дата добавления</item>
+    </string-array>
+
+    <string-array name="sort_order_alpha">
+        <item name="ASC">От А до Я</item>
+        <item name="DESC">От Я до А</item>
+    </string-array>
+
+    <string-array name="sort_order_date">
+        <item name="ASC">От старых к новым</item>
+        <item name="DESC">От новых к старым</item>
+    </string-array>
+
+    <string name="app_name">Парольщик</string>
+    <string name="action_settings">Настройки</string>
+    <string name="database_error">Ошибка базы данных</string>
+    <string name="site">Сайт</string>
+    <string name="pass">Пароль</string>
+    <string name="info">Примечание</string>
+    <string name="enter_new_pass_header">Добавить новый элемент</string>
+    <string name="enterPass_button">Готово</string>
+    <string name="dismissPass_button">Отмена</string>
+    <string name="addInfoHere">Добавьте примечание</string>
+    <string name="addPassHere">Укажите тут пароль</string>
+    <string name="addSiteHere">Укажите адрес сайта</string>
+    <string name="drop_db">Стереть базу паролей</string>
+    <string name="dataUpdated">Данные обновлены</string>
+    <string name="siteEmptyState">Сайт не указан. Данные не сохранены</string>
+    <string name="editPassLayer">Просмотр элемента</string>
+    <string name="login">Логин</string>
+    <string name="addLoginHere">Укажите тут логин</string>
+    <string name="confirmAction">Подтвердите действие</string>
+    <string name="enter">Подтвердить</string>
+    <string name="deleteError">Ошибка при удалении</string>
+    <string name="updateAfterDelete">Элемент удалён, данные обновлены</string>
+    <string name="siteEmpty">Сайт не указан</string>
+    <string name="noData">Нет данных</string>
+    <string name="search">Поиск</string>
+    <string name="editPass">Изменить элемент</string>
+    <string name="wipeBaseDsc">Это действие необратимо</string>
+    <string name="database_settings">Хранилище</string>
+    <string name="security_pin_settings">Длительность авторизации</string>
+    <string name="about_settings">Справка</string>
+    <string name="darkThemeOff">Приятный светлый интерфейс</string>
+    <string name="darkThemeOn">Полезно для AMOLED экранов</string>
+    <string name="darkTheme">Тёмная тема</string>
+    <string name="about_settings_summary">Немного информации</string>
+    <string name="about_desc">Лёгкое и быстрое хранилище паролей Genius © 2016</string>
+    <string name="info_settings">О приложении</string>
+    <string name="security_switch_settings">Включить защиту</string>
+    <string name="security_enable">Исключить неавторизованный доступ</string>
+    <string name="security_disable">Выключить защиту доступа</string>
+    <string name="security_header">Защита</string>
+    <string name="security_pin_settings_summary">Срок хранения кодов после авторизации</string>
+    <string name="security_fingerprint_settings">Отпечаток пальца</string>
+    <string name="security_fingerprint_settings_summary">Простой и легкий метод входа</string>
+    <string name="search_add_request">Укажите запрос</string>
+    <string name="search_button">Найти</string>
+    <string name="search_header">Найти элемент</string>
+    <string name="search_request_is_empty">Запрос не введен. Поиск отменён</string>
+    <string name="search_result_is">Поиск завершён. Найдено элементов:</string>
+    <string name="search_result_is_null">Поиск не дал результатов</string>
+    <string name="keystore_keys_invalidated">Ключи потеряли актуальность. Повторите покупку</string>
+    <string name="keystore_failed_summ_key">Ошибка при создании симметричного ключа</string>
+    <string name="secure_header">Подтвердите личность</string>
+    <string name="secure_descr">Чтобы получить доступ к базе паролей, подтвердите личность</string>
+    <string name="security_second_hint">Значение в секундах (1-59 с.)</string>
+    <string name="security_enabled">Защита включена</string>
+    <string name="security_disabled">Защита выключена</string>
+    <string name="security_not_set">Ваше устройство не защищено</string>
+    <string name="reset">Сброс</string>
+    <string name="sort_action">Сортировка</string>
+    <string name="sort_header">Упорядочить элементы</string>
+    <string name="sort_button">Упорядочить</string>
+    <string name="backupDatabaseButton">Управление резервной копией</string>
+    <string name="backupDatabaseButtonSummary">Сохранить/считать из /Download</string>
+    <string name="backup_create">Экспорт резервной копии</string>
+    <string name="backup_read">Импорт резервной копии</string>
+    <string name="backup_header">Управление бэкапами</string>
+    <string name="backup_request_permission">Необходимо предоставить разрешение для записи в /Download</string>
+    <string name="backup_permission_not_granted">Разрешение на запись не предоставлено</string>
+    <string name="backup_indicate_prog">"Сохранено элементов: "</string>
+    <string name="backup_indicate_read">"Загружено элементов: "</string>
+    <string name="backup_delete">Удалить резервную копию</string>
+    <string name="backup_info">Информация о резервной копии</string>
+    <string name="backup_file_deleted">Файл бекапа был удалён</string>
+    <string name="backup_info_count">"Количество элементов: "</string>
+    <string name="backup_save_complete">Файл бекапа создан и помещён в /Download</string>
+    <string name="backup_read_comlete">База данных импортирована из бэкапа</string>
+    <string name="backup_info_crc">"CRC-сумма: "</string>
+    <string name="backup_info_date_changed">"Дата изменения: "</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:text="@string/backup_info_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backup_info_count"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:padding="5dp" />
+
+    <TextView
+        android:text="@string/backup_info_crc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backup_info_crc"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:padding="5dp"/>
+
+    <TextView
+        android:text="@string/backup_info_date_changed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backup_info_date_changed"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:padding="5dp"/>
+</LinearLayout>
