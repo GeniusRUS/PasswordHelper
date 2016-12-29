@@ -69,7 +69,6 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,                          //реализует отрисовку начального макета
                              Bundle savedInstanceState) {                                           //реализация в виде, совместимом с API 25-
         if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
-            // one could return null here, or be nice and call super()
             return super.onCreateView(inflater, container, savedInstanceState);
         }
 
