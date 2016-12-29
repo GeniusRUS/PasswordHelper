@@ -38,12 +38,12 @@ public class ConfirmWipe extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {                                                       // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {                                                                                       // Verify that the host activity implements the callback interface
-            mListener = (ConfirmWipe.ConfirmWipeListener) activity;                                            // Instantiate the NoticeDialogListener so we can send events to the host
+        try {
+            mListener = (ConfirmWipe.ConfirmWipeListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString());                            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString());
         }
     }
 }

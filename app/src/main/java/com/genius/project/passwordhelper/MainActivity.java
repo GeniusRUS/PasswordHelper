@@ -344,7 +344,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {                                                 //создание списка меню
-        // Inflate the menu; this adds items to the action bar if it is present.
         if (preferences.getBoolean(PASSHELPER_THEME, false)) {
             getMenuInflater().inflate(R.menu.menu_main_blacked, menu);
         } else {
