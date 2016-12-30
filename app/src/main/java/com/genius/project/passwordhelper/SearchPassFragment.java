@@ -40,7 +40,7 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
+        if (getShowsDialog()) {
             return super.onCreateView(inflater, container, savedInstanceState);
         }
         return inflater.inflate(R.layout.dialog_search_pass_fragment, container, false);
@@ -51,7 +51,7 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
 
         int cursor_out;
         String search_type_string = "";
-        Dialog dialogForm = (Dialog) dialogInterface;                                               //брать значения только из Dialog !!!
+        Dialog dialogForm = (Dialog) dialogInterface;
         Spinner spinner_items = (Spinner) dialogForm.findViewById(R.id.search_spinner_items);
         int search_type_id = spinner_items.getSelectedItemPosition();
         EditText search_field = (EditText) dialogForm.findViewById(R.id.search_field);
@@ -100,19 +100,22 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                             listViewPasswords.setAdapter(cursorSearchAdapter);
 
                             dialogForm.dismiss();
-                            Snackbar.make(fab, getResources().getString(R.string.search_result_is) + " " + cursor_out, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            Snackbar.make(fab, getResources().getString(R.string.search_result_is) + " " + cursor_out,
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             floatingActionButton.hide();
                             DBSearch.close();
                             break;
                         } else {
                             dialogForm.dismiss();
-                            Snackbar.make(fab, getResources().getString(R.string.search_result_is_null), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            Snackbar.make(fab, getResources().getString(R.string.search_result_is_null),
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             DBSearch.close();
                             break;
                         }
                     } else {
                         dialogForm.dismiss();
-                        Snackbar.make(fab, R.string.search_request_is_empty, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Snackbar.make(fab, R.string.search_request_is_empty,
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         break;
                     }
                 } catch(SQLiteException e) {

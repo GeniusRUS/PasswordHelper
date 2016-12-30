@@ -175,15 +175,21 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
                     String[] string_temp = bufferedReader.readLine().split(" :/:");
                     if (string_temp.length == 1) {
                         strArr[0] = string_temp[0].replace(" :/:", "").trim();
+                        strArr[1] = "";
+                        strArr[2] = "";
+                        strArr[3] = "";
                     }
                     if (string_temp.length == 2) {
                         strArr[0] = string_temp[0].trim();
                         strArr[1] = string_temp[1].replace(" :/:", "").trim();
+                        strArr[2] = "";
+                        strArr[3] = "";
                     }
                     if (string_temp.length == 3) {
                         strArr[0] = string_temp[0].trim();
                         strArr[1] = string_temp[1].trim();
                         strArr[2] = string_temp[2].replace(" :/:", "").trim();
+                        strArr[3] = "";
                     }
                     if (string_temp.length == 4) {
                         strArr[0] = string_temp[0].trim();
@@ -215,7 +221,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
             super.onProgressUpdate(numArr);
             button_read.setText(getResources().getText(R.string.backup_indicate_read) + " " + numArr[0]);
         }
-    }                                   //ASync read
+    }
 
     class backup_save extends AsyncTask<Void, Integer, Void> {
         SQLiteDatabase database;
@@ -260,7 +266,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
             super.onProgressUpdate(numArr);
             button_save.setText(getResources().getText(R.string.backup_indicate_prog) + " " + numArr[0]);
         }
-    }                                   //ASync save
+    }
 
     class backup_info extends AsyncTask<Void, Void, Void> {
         SQLiteDatabase database;
@@ -314,7 +320,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
             builder.create().show();
             database.close();
         }
-    }                                      //ASync info
+    }
 
     class deleteFileBackup extends AsyncTask<Void, Void, Void> {
         @Override
@@ -328,7 +334,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
             super.onPostExecute(voidR);
             Toast.makeText(context, getResources().getString(R.string.backup_file_deleted), Toast.LENGTH_SHORT).show();
         }
-    }                                 //ASync delete
+    }
 
     public static long CRC32(InputStream in) throws IOException {
         Checksum sum_control = new CRC32();

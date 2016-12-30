@@ -69,8 +69,6 @@
     <string name="security_disable">Выключить защиту доступа</string>
     <string name="security_header">Защита</string>
     <string name="security_pin_settings_summary">Срок хранения кодов после авторизации</string>
-    <string name="security_fingerprint_settings">Отпечаток пальца</string>
-    <string name="security_fingerprint_settings_summary">Простой и легкий метод входа</string>
     <string name="search_add_request">Укажите запрос</string>
     <string name="search_button">Найти</string>
     <string name="search_header">Найти элемент</string>
@@ -78,14 +76,10 @@
     <string name="search_result_is">Поиск завершён. Найдено элементов:</string>
     <string name="search_result_is_null">Поиск не дал результатов</string>
     <string name="keystore_keys_invalidated">Ключи потеряли актуальность. Повторите покупку</string>
-    <string name="keystore_failed_summ_key">Ошибка при создании симметричного ключа</string>
-    <string name="secure_header">Подтвердите личность</string>
-    <string name="secure_descr">Чтобы получить доступ к базе паролей, подтвердите личность</string>
     <string name="security_second_hint">Значение в секундах (1-59 с.)</string>
     <string name="security_enabled">Защита включена</string>
     <string name="security_disabled">Защита выключена</string>
     <string name="security_not_set">Ваше устройство не защищено</string>
-    <string name="reset">Сброс</string>
     <string name="sort_action">Сортировка</string>
     <string name="sort_header">Упорядочить элементы</string>
     <string name="sort_button">Упорядочить</string>
@@ -94,7 +88,6 @@
     <string name="backup_create">Экспорт резервной копии</string>
     <string name="backup_read">Импорт резервной копии</string>
     <string name="backup_header">Управление бэкапами</string>
-    <string name="backup_request_permission">Необходимо предоставить разрешение для записи в /Download</string>
     <string name="backup_permission_not_granted">Разрешение на запись не предоставлено</string>
     <string name="backup_indicate_prog">"Сохранено элементов: "</string>
     <string name="backup_indicate_read">"Загружено элементов: "</string>
@@ -106,4 +99,6 @@
     <string name="backup_read_comlete">База данных импортирована из бэкапа</string>
     <string name="backup_info_crc">"CRC-сумма: "</string>
     <string name="backup_info_date_changed">"Дата изменения: "</string>
+    <string name="keyguard_manager_header">Идентификация пользователя</string>
+    <string name="keyguard_manager_description">Чтобы получить доступ к защищенному хранилищу аккаунтов и паролей, необходимо подтвердить доступ</string>
 </resources>

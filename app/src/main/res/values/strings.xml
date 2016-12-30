@@ -68,8 +68,6 @@
     <string name="security_disable">Disable password protect</string>
     <string name="security_header">Security</string>
     <string name="security_pin_settings_summary">Don\'t confirm access after last one</string>
-    <string name="security_fingerprint_settings">Fingerprint protect</string>
-    <string name="security_fingerprint_settings_summary">Fast and simple autorize method</string>
     <string name="search_add_request">Enter your request</string>
     <string name="search_button">Search</string>
     <string name="search_header">Find element</string>
@@ -77,14 +75,10 @@
     <string name="search_result_is">Search completed. Items found:</string>
     <string name="search_result_is_null">Search can\'t find elements</string>
     <string name="keystore_keys_invalidated">Keys are invalidated after created. Retry the purchase</string>
-    <string name="keystore_failed_summ_key">Failed to create a symmetric key</string>
-    <string name="secure_header">Confirm you credential</string>
-    <string name="secure_descr">To gain access to the password database, identify yourself</string>
     <string name="security_second_hint">Value in seconds (1-59 s.)</string>
     <string name="security_enabled">Security enabled</string>
     <string name="security_disabled">Security disabled</string>
     <string name="security_not_set">Your device is not secured</string>
-    <string name="reset">Reset</string>
     <string name="sort_action">Sorting</string>
     <string name="sort_header">Sort items</string>
     <string name="sort_button">Sort</string>
@@ -93,7 +87,6 @@
     <string name="backup_create">Export backup copy</string>
     <string name="backup_read">Import backup copy</string>
     <string name="backup_header">Backup manager</string>
-    <string name="backup_request_permission">Need permission for write bakup to /Download</string>
     <string name="backup_permission_not_granted">Fail request permission</string>
     <string name="backup_indicate_prog">"Elements saved: "</string>
     <string name="backup_indicate_read">"Elements readed: "</string>
@@ -105,4 +98,6 @@
     <string name="backup_read_comlete">Database updated with backup file</string>
     <string name="backup_info_crc">"CRC-summ: "</string>
     <string name="backup_info_date_changed">"Date changed is: "</string>
+    <string name="keyguard_manager_header">Verify youself</string>
+    <string name="keyguard_manager_description">Try gain a access to storage</string>
 </resources>

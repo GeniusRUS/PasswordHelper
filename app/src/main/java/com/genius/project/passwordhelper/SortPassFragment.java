@@ -83,7 +83,7 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
+        if (getShowsDialog()) {
             return super.onCreateView(inflater, container, savedInstanceState);
         }
         return inflater.inflate(R.layout.dialog_sorting_pass_fragment, container, false);

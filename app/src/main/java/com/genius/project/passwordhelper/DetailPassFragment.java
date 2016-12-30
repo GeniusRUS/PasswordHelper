@@ -50,11 +50,10 @@ public class DetailPassFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,                          //реализует отрисовку начального макета
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {                                           //реализация в виде, совместимом с API 25-
                                                                                                     //также отображает диалог, в зависимости от того
         if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
-            // one could return null here, or be nice and call super()
             return super.onCreateView(inflater, container, savedInstanceState);
         }
         return inflater.inflate(R.layout.dialog_show_pass_fragment, container, false);
