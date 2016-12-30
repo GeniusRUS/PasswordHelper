@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.CharacterData;
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -271,6 +275,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
     class backup_info extends AsyncTask<Void, Void, Void> {
         SQLiteDatabase database;
         PasswordDatabaseHelper passwordHepler;
+        String name;
         int count_elements;
         Date date;
         long crc_hash;
@@ -284,6 +289,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
                 database = this.passwordHepler.getWritableDatabase();
                 InputStream stream = new FileInputStream(file);
                 InputStream stream_crc = new FileInputStream(file);
+                name = file.getName();
                 crc_hash = BackupActionFragment.CRC32(stream_crc);
                 Reader inputStreamReader = new InputStreamReader(stream, "UTF8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -306,15 +312,18 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         protected void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
             View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_backup_info_fragment, null);
+            TextView text_name = (TextView) view.findViewById(R.id.backup_info_name);
             TextView text_count = (TextView) view.findViewById(R.id.backup_info_count);
             TextView text_crc = (TextView) view.findViewById(R.id.backup_info_crc);
             TextView text_date = (TextView) view.findViewById(R.id.backup_info_date_changed);
-            CharSequence count = getResources().getString(R.string.backup_info_count) + count_elements;
-            CharSequence crc = getResources().getString(R.string.backup_info_crc) + String.format(Locale.ENGLISH, "%d", crc_hash);
-            CharSequence date = getResources().getString(R.string.backup_info_date_changed) + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US).format(file.lastModified());
-            text_count.setText(count);
-            text_crc.setText(crc);
-            text_date.setText(date);
+            String outName = getResources().getString(R.string.backup_info_name) + name;
+            String outCount = getResources().getString(R.string.backup_info_count) + count_elements;
+            String outCrc = getResources().getString(R.string.backup_info_crc) + String.format(Locale.ENGLISH, "%d", crc_hash);
+            String outDate = getResources().getString(R.string.backup_info_date_changed) + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US).format(file.lastModified());
+            text_name.setText(outName);
+            text_count.setText(outCount);
+            text_crc.setText(outCrc);
+            text_date.setText(outDate);
             Builder builder = new Builder(getActivity());
             builder.setTitle(R.string.backup_info).setView(view).create();
             builder.create().show();

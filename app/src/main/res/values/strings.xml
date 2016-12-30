@@ -100,4 +100,5 @@
     <string name="backup_info_date_changed">"Date changed is: "</string>
     <string name="keyguard_manager_header">Verify youself</string>
     <string name="keyguard_manager_description">Try gain a access to storage</string>
+    <string name="backup_info_name">"Name of copy: "</string>
 </resources>

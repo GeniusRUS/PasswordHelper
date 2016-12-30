@@ -101,4 +101,5 @@
     <string name="backup_info_date_changed">"Дата изменения: "</string>
     <string name="keyguard_manager_header">Идентификация пользователя</string>
     <string name="keyguard_manager_description">Чтобы получить доступ к защищенному хранилищу аккаунтов и паролей, необходимо подтвердить доступ</string>
+    <string name="backup_info_name">"Имя файла бэкапа: "</string>
 </resources>

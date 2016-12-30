@@ -5,6 +5,14 @@
     android:padding="10dp">
 
     <TextView
+        android:text="@string/backup_info_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backup_info_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:padding="5dp" />
+
+    <TextView
         android:text="@string/backup_info_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
