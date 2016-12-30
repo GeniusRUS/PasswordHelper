@@ -13,23 +13,23 @@ import android.app.AlertDialog;
 
 public class ConfirmAction extends DialogFragment {
 
-    ConfirmDialogListener mListener;                                                                 // Use this instance of the interface to deliver action events
+    ConfirmDialogListener mListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());                       // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.confirmAction)
                 .setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onDialogPositiveClick(ConfirmAction.this);                        //пробрасываем событие в слушатель, метод которого переопределен в MainActivity
+                        mListener.onDialogPositiveClick(ConfirmAction.this);
                     }
                 })
                 .setNegativeButton(R.string.dismissPass_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onDialogNegativeClick(ConfirmAction.this);                        //пробрасываем событие в слушатель, метод которого переопределен в MainActivity
+                        mListener.onDialogNegativeClick(ConfirmAction.this);
                     }
                 });
-        return builder.create();                                                                    // Create the AlertDialog object and return it
+        return builder.create();
     }
 
     public interface ConfirmDialogListener {
@@ -38,12 +38,12 @@ public class ConfirmAction extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {                                                       // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {                                                                                       // Verify that the host activity implements the callback interface
-            mListener = (ConfirmDialogListener) activity;                                            // Instantiate the NoticeDialogListener so we can send events to the host
+        try {
+            mListener = (ConfirmDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString());                                        // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString());
         }
     }
 }

@@ -34,7 +34,7 @@ public class AddPassFragment extends DialogFragment implements DialogInterface.O
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,                          //реализует отрисовку начального макета
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {                                           //реализация в виде, совместимом с API 25-
         if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
             return super.onCreateView(inflater, container, savedInstanceState);

@@ -40,7 +40,6 @@ class PasswordDatabaseHelper extends SQLiteOpenHelper {
         if(oldVersion < 2) {
             database.execSQL("ALTER TABLE DATAPASS ADD COLUMN LOGIN TEXT");
         }
-        //вставить логику обновления БД
     }
 
     void insertPass(SQLiteDatabase database,
