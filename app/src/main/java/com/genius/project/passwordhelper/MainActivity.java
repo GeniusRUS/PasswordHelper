@@ -131,13 +131,11 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
                         KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
                 cipher.init(Cipher.ENCRYPT_MODE, secretKey);
                 cipher.doFinal(SECRET_BYTE_ARRAY);
-                showAlreadyAuthenticated();
                 return true;
             } catch (UserNotAuthenticatedException e) {
                 showAuthenticationScreen();
                 return false;
             } catch (KeyPermanentlyInvalidatedException e) {
-                Log.v("key_invalidated", "genuis_debug:" + R.string.keystore_keys_invalidated + e.getMessage());
                 return false;
             } catch (BadPaddingException | IllegalBlockSizeException | KeyStoreException | CertificateException | UnrecoverableKeyException |
                     IOException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException e) {
@@ -153,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
                 KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
                 keyStore.load(null);
                 KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+                authenticationDurationSeconds = preferences.getInt(PASSHELPER_SECONDS_AUTH, 30);
 
                 keyGenerator.init(new KeyGenParameterSpec.Builder(KEY_NAME, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                         .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
@@ -168,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
     }
 
     private void showAuthenticationScreen() {
-        Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(null, null);
+        Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(getResources().getString(R.string.keyguard_manager_header),
+                getResources().getString(R.string.keyguard_manager_description));
         if(intent != null) {
             startActivityForResult(intent, REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS);
         }
@@ -177,29 +177,18 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
-            if(resultCode == RESULT_OK) {
-                if(tryEncrypt()) {
-                    showPurchaseConfirmation();
-                }
-            } else {
+            if(resultCode != RESULT_OK) {
                 super.finish();
             }
         }
     }
 
-    private void showPurchaseConfirmation() {
-        Log.v("access_granted", "genuis_debug: access granted");
-    }
-
-    private void showAlreadyAuthenticated() {
-        Log.v("already_auth", "genuis_debug: already authenticated");
-    }
 
     @Override
     public void onRefresh() {
-        listViewPasswords = (ListView) findViewById(R.id.listPasswords);                            //заполнение ListView
+        listViewPasswords = (ListView) findViewById(R.id.listPasswords);
         mSwipeRefreshLayout.setRefreshing(true);
-        try{                                                                                        //вызывается после каждой операции ввода/удаления/изменения
+        try{
             dbHelper = new PasswordDatabaseHelper(this);
             dataBaseMain = dbHelper.getReadableDatabase();
             displayMainCursor = dataBaseMain.query(CNST_DB, new String[]{"_id", "SITE"}, null, null, null, null, sort());

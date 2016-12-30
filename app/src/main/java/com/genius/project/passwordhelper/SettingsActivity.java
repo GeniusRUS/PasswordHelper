@@ -29,7 +29,6 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
     public static final String PASSHELPER_THEME = "isBlackTheme";
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     SharedPreferences preferences;
-    private KeyguardManager mKeyguardManager;
 
     public void dropDatabase() {
         SQLiteOpenHelper databaseHelper = new PasswordDatabaseHelper(this);
@@ -77,7 +76,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference buttonWipe = getPreferenceManager().findPreference("preference_wipe_button");    //инициализируем кнопку по поиску значения String и переопределяем клик по ней
+        Preference buttonWipe = getPreferenceManager().findPreference("preference_wipe_button");
         buttonWipe.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -90,7 +89,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         Preference themeSwitch = getPreferenceManager().findPreference("theme_switch");
         themeSwitch.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceClick(Preference preference) {                               //смена переменной темы и перезапуск активности
+            public boolean onPreferenceClick(Preference preference) {
                 if(getPreferenceManager().getSharedPreferences().getBoolean("theme_switch", true)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_THEME, true);
@@ -111,7 +110,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference buttonAbout = getPreferenceManager().findPreference("preference_about_button");  //инициализируем кнопку по поиску значения String и переопределяем клик по ней
+        Preference buttonAbout = getPreferenceManager().findPreference("preference_about_button");
         buttonAbout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -127,11 +126,11 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
 
         Preference securityEnable = getPreferenceManager().findPreference("security_enabler");
         SwitchPreference secEnSw = (SwitchPreference) getPreferenceScreen().findPreference("security_enabler");
-        mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {                                        //проверка на API < 23
             secEnSw.setEnabled(false);
         } else {
-            if (!mKeyguardManager.isKeyguardSecure()) {                                             //проверка на включенную защиту
+            if (!mKeyguardManager.isKeyguardSecure()) {
                 secEnSw.setEnabled(false);
             }
         }

@@ -10,12 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class EditPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
@@ -30,8 +28,7 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
     Bundle bundle;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {                                       //отображает слой с фрагментом диалога
-
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         bundle = this.getArguments();
         itemId = Long.toString(bundle.getLong("itemId"));
         updatedValues = new ContentValues();
@@ -66,7 +63,7 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,                          //реализует отрисовку начального макета
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {                                           //реализация в виде, совместимом с API 25-
         if (getShowsDialog()) {                                                                     //кто вызывает его (фрагмент/активность)
             return super.onCreateView(inflater, container, savedInstanceState);
@@ -101,7 +98,6 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
                     if (siteView.getText().toString().equals("")) {
                         siteView.setText(R.string.siteEmpty);
                     }
-                    Log.v("siteView is", siteView.getText().toString());
                     updatedValues.put("SITE", siteView.getText().toString());
                     updatedValues.put("LOGIN", loginView.getText().toString());
                     updatedValues.put("PASS", passView.getText().toString());
