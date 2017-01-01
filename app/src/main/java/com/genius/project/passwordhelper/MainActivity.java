@@ -219,13 +219,9 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
             boolean security_enable = preferences.getBoolean(PASSHELPER_SECURITY_ENABLE, false);
             authenticationDurationSeconds = preferences.getInt(PASSHELPER_SECONDS_AUTH, 30);
             mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-            if (!mKeyguardManager.isKeyguardSecure() && security_enable) {
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.security_not_set), Toast.LENGTH_LONG).show();
-            } else {
-                if (security_enable) {
-                    createKey();
-                    tryEncrypt();
-                }
+            if (mKeyguardManager.isKeyguardSecure() && security_enable) {
+                createKey();
+                tryEncrypt();
             }
         }
         if (preferences.getBoolean(PASSHELPER_THEME, false)) {

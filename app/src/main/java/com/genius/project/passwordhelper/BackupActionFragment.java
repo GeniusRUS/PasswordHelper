@@ -18,9 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -80,6 +77,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
                 button_read.setActivated(false);
                 button_info.setEnabled(false);
                 button_info.setActivated(false);
+                button_delete.setEnabled(false);
                 button_delete.setEnabled(false);
                 button_delete.setActivated(false);
             }
