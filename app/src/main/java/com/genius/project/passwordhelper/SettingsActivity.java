@@ -126,6 +126,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
 
         Preference securityEnable = getPreferenceManager().findPreference("security_enabler");
         SwitchPreference secEnSw = (SwitchPreference) getPreferenceScreen().findPreference("security_enabler");
+        secEnSw.setChecked(preferences.getBoolean(PASSHELPER_SECURITY_ENABLE, false));
         KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {                                        //проверка на API < 23
             secEnSw.setEnabled(false);
@@ -144,6 +145,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                     Toast.makeText(SettingsActivity.this, getResources().getString(R.string.security_enabled), Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
+
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, false);
                     editor.apply();

@@ -222,6 +222,10 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
             if (mKeyguardManager.isKeyguardSecure() && security_enable) {
                 createKey();
                 tryEncrypt();
+            } else if(!mKeyguardManager.isKeyguardSecure() && security_enable) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(PASSHELPER_SECURITY_ENABLE, false);
+                editor.apply();
             }
         }
         if (preferences.getBoolean(PASSHELPER_THEME, false)) {
@@ -236,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
         Toolbar toolbar_white_buttons = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar_white_buttons);
 
-        dialogAddPass = new AddPassFragment();                                                      //инициализиуем фрагмент AddPass
+        dialogAddPass = new AddPassFragment();
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(this);
