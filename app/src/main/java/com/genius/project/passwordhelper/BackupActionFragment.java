@@ -35,20 +35,17 @@ import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
 public class BackupActionFragment extends DialogFragment implements DialogInterface.OnClickListener {
-    Button button_save;
-    Button button_read;
-    Button button_info;
-    Button button_delete;
-    Context context;
-    String filename = "BackupPasswords.txt";
-    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
+    private Button button_save;
+    private Button button_read;
+    private Button button_info;
+    private Button button_delete;
+    private Context context;
+    private String filename = "BackupPasswords.txt";
+    private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-        switch (i) {
-            case 0:
-                dialogInterface.dismiss();
-        }
+        dialogInterface.dismiss();
     }
 
     @Override
@@ -66,46 +63,25 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
             button_save.setEnabled(true);
             button_save.setActivated(true);
             if (file.exists()) {
-                button_read.setEnabled(true);
-                button_read.setActivated(true);
-                button_info.setEnabled(true);
-                button_info.setActivated(true);
-                button_delete.setEnabled(true);
-                button_delete.setActivated(true);
+                buttonSetter(true);
             } else {
-                button_read.setEnabled(false);
-                button_read.setActivated(false);
-                button_info.setEnabled(false);
-                button_info.setActivated(false);
-                button_delete.setEnabled(false);
-                button_delete.setEnabled(false);
-                button_delete.setActivated(false);
+                buttonSetter(false);
             }
         } else {
             button_save.setEnabled(false);
             button_save.setActivated(false);
             if (file.exists()) {
-                button_read.setEnabled(true);
-                button_read.setActivated(true);
-                button_info.setEnabled(true);
-                button_info.setActivated(true);
-                button_delete.setEnabled(true);
-                button_delete.setActivated(true);
+                buttonSetter(true);
             } else {
-                button_read.setEnabled(false);
-                button_read.setActivated(false);
-                button_info.setEnabled(false);
-                button_info.setActivated(false);
-                button_delete.setEnabled(false);
-                button_delete.setActivated(false);
+                buttonSetter(false);
             }
         }
 
         button_info.setText(getResources().getString(R.string.backup_info));
-        button_save.setOnClickListener(new button_save_listener());
-        button_read.setOnClickListener(new button_read_listener());
-        button_info.setOnClickListener(new button_info_listener());
-        button_delete.setOnClickListener(new button_delete_listener());
+        button_save.setOnClickListener(new buttonSaveListener());
+        button_read.setOnClickListener(new buttonReadListener());
+        button_info.setOnClickListener(new buttonInfoListener());
+        button_delete.setOnClickListener(new buttonDeleteListener());
 
         cursor.close();
         database.close();
@@ -117,44 +93,34 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         return getShowsDialog() ? super.onCreateView(layoutInflater, viewGroup, bundle) : layoutInflater.inflate(R.layout.dialog_backup_fragment, viewGroup, false);
     }
 
-    class button_save_listener implements View.OnClickListener {
+    class buttonSaveListener implements View.OnClickListener {
 
         public void onClick(View view) {
-            new backup_save().execute();
-            button_read.setEnabled(true);
-            button_read.setActivated(true);
-            button_info.setEnabled(true);
-            button_info.setActivated(true);
-            button_delete.setEnabled(true);
-            button_delete.setActivated(true);
+            new backupSave().execute();
+            buttonSetter(true);
         }
     }
 
-    class button_read_listener implements View.OnClickListener {
+    class buttonReadListener implements View.OnClickListener {
         public void onClick(View view) {
-            new backup_read().execute();
+            new backupRead().execute();
         }
     }
 
-    class button_info_listener implements View.OnClickListener {
+    class buttonInfoListener implements View.OnClickListener {
         public void onClick(View view) {
-            new backup_info().execute();
+            new backupInfo().execute();
         }
     }
 
-    class button_delete_listener implements View.OnClickListener {
+    class buttonDeleteListener implements View.OnClickListener {
         public void onClick(View view) {
             new deleteFileBackup().execute();
-            button_read.setEnabled(false);
-            button_read.setActivated(false);
-            button_info.setEnabled(false);
-            button_info.setActivated(false);
-            button_delete.setEnabled(false);
-            button_delete.setActivated(false);
+            buttonSetter(false);
         }
     }
 
-    class backup_read extends AsyncTask<Void, Integer, Void> {
+    class backupRead extends AsyncTask<Void, Integer, Void> {
         SQLiteDatabase database;
         PasswordDatabaseHelper passwordDatabaseHelper;
 
@@ -225,7 +191,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         }
     }
 
-    class backup_save extends AsyncTask<Void, Integer, Void> {
+    class backupSave extends AsyncTask<Void, Integer, Void> {
         SQLiteDatabase database;
         Cursor cursor;
 
@@ -270,7 +236,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         }
     }
 
-    class backup_info extends AsyncTask<Void, Void, Void> {
+    class backupInfo extends AsyncTask<Void, Void, Void> {
         SQLiteDatabase database;
         PasswordDatabaseHelper passwordHepler;
         String name;
@@ -343,7 +309,16 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         }
     }
 
-    public static long CRC32(InputStream in) throws IOException {
+    private void buttonSetter(boolean isEnable) {
+        button_read.setEnabled(isEnable);
+        button_read.setActivated(isEnable);
+        button_info.setEnabled(isEnable);
+        button_info.setActivated(isEnable);
+        button_delete.setEnabled(isEnable);
+        button_delete.setActivated(isEnable);
+    }
+
+    private static long CRC32(InputStream in) throws IOException {
         Checksum sum_control = new CRC32();
         for (int b = in.read(); b != -1; b = in.read()) {
             sum_control.update(b);

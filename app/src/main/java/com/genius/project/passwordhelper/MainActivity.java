@@ -63,16 +63,16 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
 
     private static int authenticationDurationSeconds;
 
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    SharedPreferences preferences;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SharedPreferences preferences;
     protected static KeyguardManager mKeyguardManager;
     private SQLiteDatabase dataBaseMain;
     private Cursor displayMainCursor;
-    SQLiteOpenHelper dbHelper;
-    DialogFragment dialogAddPass;
-    ListView listViewPasswords;
-    FloatingActionButton fab;
-    int selectedItemId;
+    private SQLiteOpenHelper dbHelper;
+    private DialogFragment dialogAddPass;
+    private ListView listViewPasswords;
+    private FloatingActionButton fab;
+    private int selectedItemId;
     public static String sortTypeIn;
     public static String sortOrderIn;
     public static SharedPreferences prefSort;

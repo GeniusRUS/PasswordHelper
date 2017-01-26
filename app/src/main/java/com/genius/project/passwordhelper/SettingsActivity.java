@@ -28,7 +28,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
     public static final String PASSHELPER_SECONDS_AUTH = "SecSecAuth";
     public static final String PASSHELPER_THEME = "isBlackTheme";
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     public void dropDatabase() {
         SQLiteOpenHelper databaseHelper = new PasswordDatabaseHelper(this);
