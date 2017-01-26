@@ -52,6 +52,7 @@ public class PasswordGeneratorFragment extends DialogFragment implements DialogI
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_pass_generator, null);
+
         dialog = new AlertDialog.Builder(getActivity())
                 .setNeutralButton(R.string.generate_action, this)
                 .setPositiveButton(R.string.enterPass_button, this)
@@ -69,7 +70,7 @@ public class PasswordGeneratorFragment extends DialogFragment implements DialogI
                         if(countChars.getProgress() <= 0) {
                             Toast.makeText(getActivity(), R.string.generate_zero_count_error, Toast.LENGTH_SHORT).show();
                         } else {
-                            pass = generate(countChars.getProgress());
+                            pass = generate(countChars.getProgress() + 6);
                             password.setText(pass);
                             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("copied_password", pass);
@@ -84,25 +85,27 @@ public class PasswordGeneratorFragment extends DialogFragment implements DialogI
         password = (TextView) view.findViewById(R.id.password);
         count = (TextView) view.findViewById(R.id.count);
         countChars = (SeekBar) view.findViewById(R.id.countChars);
-        pass = generate(countChars.getProgress());
+        pass = generate(countChars.getProgress() + 6);
         password.setText(pass);
+        String string = String.valueOf(countChars.getProgress() + 6) + getResources().getString(R.string.generate_symbols);
+        count.setText(string);
 
         countChars.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                String string = String.valueOf(seekBar.getProgress()) + getResources().getString(R.string.generate_symbols);
+                String string = String.valueOf(seekBar.getProgress() + 6) + getResources().getString(R.string.generate_symbols);
                 count.setText(string);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                String string = String.valueOf(seekBar.getProgress()) + getResources().getString(R.string.generate_symbols);
+                String string = String.valueOf(seekBar.getProgress() + 6) + getResources().getString(R.string.generate_symbols);
                 count.setText(string);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                String string = String.valueOf(seekBar.getProgress()) + getResources().getString(R.string.generate_symbols);
+                String string = String.valueOf(seekBar.getProgress() + 6) + getResources().getString(R.string.generate_symbols);
                 count.setText(string);
             }
         });
