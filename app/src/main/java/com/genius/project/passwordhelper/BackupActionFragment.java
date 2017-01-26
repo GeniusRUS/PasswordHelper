@@ -319,10 +319,12 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
     }
 
     private static long CRC32(InputStream in) throws IOException {
-        Checksum sum_control = new CRC32();
-        for (int b = in.read(); b != -1; b = in.read()) {
-            sum_control.update(b);
+        int gByte = 0;
+        CRC32 gCRC = new CRC32();
+        while ((gByte = in.read()) != -1) {
+            gCRC.update(gByte);
         }
-        return sum_control.getValue();
+        in.close();
+        return gCRC.getValue();
     }
 }

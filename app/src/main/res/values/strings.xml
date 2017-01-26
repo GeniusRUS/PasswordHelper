@@ -108,4 +108,5 @@
     <string name="generate_copy_in_clipboard">Copied in clipboard</string>
     <string name="action_generate">Generate pass</string>
     <string name="generate_symbols">" symbols"</string>
+    <string name="sort_action_summary">Quickly be guided to the list</string>
 </resources>

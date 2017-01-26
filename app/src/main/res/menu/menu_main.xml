@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.genius.project.passwordhelper.MainActivity">
     <item
-        android:id="@+id/action_sort"
-        android:title="@string/sort_action"
-        android:icon="@drawable/ic_sort_variant_black_48dp"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_search"
         android:title="@string/search"
         android:icon="@drawable/ic_magnify_black_48dp"

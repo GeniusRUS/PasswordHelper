@@ -53,6 +53,17 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             addPreferencesFromResource(R.xml.preferences);
         }
 
+        Preference sort_backup = getPreferenceManager().findPreference("preference_sort_button");
+        sort_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                DialogFragment sortFragment = new SortPassFragment();
+                sortFragment.show(getFragmentManager(), "sortFragment");
+                return true;
+            }
+        });
+
+
         Preference button_backup = getPreferenceManager().findPreference("backup_button");
         button_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

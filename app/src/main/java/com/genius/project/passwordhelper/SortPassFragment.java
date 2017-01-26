@@ -127,8 +127,6 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
                     }
                 }
                 editor.apply();
-                MainActivity main = (MainActivity) getActivity();
-                main.updateMainList(false);
                 break;
             }
             case Dialog.BUTTON_NEGATIVE: {

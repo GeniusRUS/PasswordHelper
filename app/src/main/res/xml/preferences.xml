@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/database_settings"
-        />
+        android:title="@string/database_settings" />
+    <Preference
+        android:title="@string/sort_action"
+        android:key="preference_sort_button"
+        android:icon="@drawable/ic_sort_variant_black_24dp"
+        android:summary="@string/sort_action_summary"/>
     <Preference
         android:title="@string/drop_db"
         android:key="preference_wipe_button"

@@ -354,11 +354,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
                 searchFragment.show(getFragmentManager(), "searchFragment");
                 return true;
             }
-            case R.id.action_sort: {
-                DialogFragment sortFragment = new SortPassFragment();
-                sortFragment.show(getFragmentManager(), "sortFragment");
-                return true;
-            }
             case R.id.action_generate: {
                 DialogFragment generateFragment = new PasswordGeneratorFragment();
                 generateFragment.show(getFragmentManager(), "generateFragment");

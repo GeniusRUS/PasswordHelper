@@ -109,4 +109,5 @@
     <string name="generate_copy_in_clipboard">Скопировано в буфер обмена</string>
     <string name="action_generate">Генератор паролей</string>
     <string name="generate_symbols">" символов"</string>
+    <string name="sort_action_summary">Быстро находите нужные значения</string>
 </resources>
