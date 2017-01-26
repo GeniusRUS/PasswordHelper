@@ -49,6 +49,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECURITY_ENABLE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECONDS_AUTH;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
     private static final String KEY_NAME = "my_key";
     private static final byte[] SECRET_BYTE_ARRAY = new byte[]{1, 2, 3, 4, 5, 6};
     private static final int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 1;
-    public static final String CNST_DB = "DATAPASS";
 
     private static int authenticationDurationSeconds;
 
@@ -355,8 +355,13 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
                 return true;
             }
             case R.id.action_sort: {
-                DialogFragment sortFramgent = new SortPassFragment();
-                sortFramgent.show(getFragmentManager(), "sortFragment");
+                DialogFragment sortFragment = new SortPassFragment();
+                sortFragment.show(getFragmentManager(), "sortFragment");
+                return true;
+            }
+            case R.id.action_generate: {
+                DialogFragment generateFragment = new PasswordGeneratorFragment();
+                generateFragment.show(getFragmentManager(), "generateFragment");
                 return true;
             }
         }

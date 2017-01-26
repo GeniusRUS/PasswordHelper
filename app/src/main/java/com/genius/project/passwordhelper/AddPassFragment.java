@@ -16,12 +16,12 @@ import android.widget.EditText;
 
 public class AddPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    PasswordDatabaseHelper helper;
-    SQLiteDatabase database;
-    String site;
-    String login;
-    String pass;
-    String info;
+    private PasswordDatabaseHelper helper;
+    private SQLiteDatabase database;
+    private String site;
+    private String login;
+    private String pass;
+    private String info;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {                                       //отображает слой с фрагментом диалога

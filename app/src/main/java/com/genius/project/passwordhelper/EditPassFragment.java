@@ -15,21 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+
 public class EditPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    PasswordDatabaseHelper helper;
-    SQLiteDatabase database;
-    ContentValues updatedValues;
-    EditText siteView;
-    EditText loginView;
-    EditText passView;
-    EditText infoView;
-    String itemId;
-    Bundle bundle;
+    private SQLiteDatabase database;
+    private ContentValues updatedValues;
+    private EditText siteView;
+    private EditText loginView;
+    private EditText passView;
+    private EditText infoView;
+    private String itemId;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
         itemId = Long.toString(bundle.getLong("itemId"));
         updatedValues = new ContentValues();
 
@@ -37,7 +37,7 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
 
         SQLiteOpenHelper passHelper = new PasswordDatabaseHelper(getActivity());
         SQLiteDatabase database = passHelper.getReadableDatabase();
-        Cursor cursor = database.query("DATAPASS", new String[]{"SITE", "LOGIN", "PASS", "INFO"}, "_id = ?", new String[]{itemId}, null, null, null);
+        Cursor cursor = database.query(CNST_DB, new String[]{"SITE", "LOGIN", "PASS", "INFO"}, "_id = ?", new String[]{itemId}, null, null, null);
 
         if(cursor.moveToFirst()) {
             siteView = (EditText) view.findViewById(R.id.site_editable);
@@ -69,14 +69,14 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
             return super.onCreateView(inflater, container, savedInstanceState);
         }
 
-        return inflater.inflate(R.layout.dialog_add_pass_fragment, container, false);
+        return inflater.inflate(R.layout.dialog_edit_pass_fragment, container, false);
     }
 
     @Override
     public void onClick(DialogInterface dialogInterface, int number) {
 
         MainActivity main = (MainActivity) getActivity();
-        helper = new PasswordDatabaseHelper(getActivity());
+        PasswordDatabaseHelper helper = new PasswordDatabaseHelper(getActivity());
         database = helper.getWritableDatabase();
 
         Dialog dialogForm = (Dialog) dialogInterface;                                               //брать значения только из Dialog !!!

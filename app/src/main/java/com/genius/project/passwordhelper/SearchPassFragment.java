@@ -21,11 +21,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+
 
 public class SearchPassFragment extends DialogFragment implements DialogInterface.OnClickListener{
-
-    public final static String CNST_DB = "DATAPASS";
-    Cursor cursorSearch;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -85,10 +84,10 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                         ListView listViewPasswords = (ListView) getActivity().findViewById(R.id.listPasswords);     //заполнение ListView
                             SQLiteOpenHelper helperSearch = new PasswordDatabaseHelper(getActivity());              //вызывается после каждой операции ввода/удаления/изменения
                             SQLiteDatabase DBSearch = helperSearch.getReadableDatabase();
-                            cursorSearch = DBSearch.query(CNST_DB,
-                                    new String[]{"_id", "SITE"},
-                                    "upper("+search_type_string+") LIKE ?",                            //регистронезависимый поиск
-                                    new String[]{'%'+search_request.toUpperCase()+'%'}, null, null, null);
+                            Cursor cursorSearch = DBSearch.query(CNST_DB,
+                                new String[]{"_id", "SITE"},
+                                "upper(" + search_type_string + ") LIKE ?",                            //регистронезависимый поиск
+                                new String[]{'%' + search_request.toUpperCase() + '%'}, null, null, null);
                             cursor_out = cursorSearch.getCount();
 
                         if(cursor_out != 0) {

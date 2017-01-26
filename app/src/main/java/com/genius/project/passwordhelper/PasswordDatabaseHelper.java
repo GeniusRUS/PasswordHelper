@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class PasswordDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String CNST_DB = "DATAPASS";
+    public static final String CNST_DB = "DATAPASS";
     public static final String DB_NAME = "passwords";
     private static final int DB_VERSION = 1;
 

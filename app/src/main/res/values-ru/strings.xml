@@ -102,4 +102,11 @@
     <string name="keyguard_manager_header">Идентификация пользователя</string>
     <string name="keyguard_manager_description">Чтобы получить доступ к защищенному хранилищу аккаунтов и паролей, необходимо подтвердить доступ</string>
     <string name="backup_info_name">"Имя файла бэкапа: "</string>
+    <string name="generator_header">Генерация пароля</string>
+    <string name="generate_action">Сгенерировать</string>
+    <string name="generator_hint">Пароль</string>
+    <string name="generate_zero_count_error">Пароль длиной в 0 знаков никому не нужен</string>
+    <string name="generate_copy_in_clipboard">Скопировано в буфер обмена</string>
+    <string name="action_generate">Генератор паролей</string>
+    <string name="generate_symbols">" символов"</string>
 </resources>

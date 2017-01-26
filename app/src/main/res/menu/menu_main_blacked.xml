@@ -13,8 +13,13 @@
         android:title="@string/search"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_generate"
+        android:icon="@drawable/ic_key_white_48dp"
+        android:title="@string/action_generate"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_settings_white_48dp"/>
+        android:icon="@drawable/ic_settings_white_48dp"
+        app:showAsAction="always" />
 </menu>

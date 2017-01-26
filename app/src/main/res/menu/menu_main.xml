@@ -13,8 +13,13 @@
         android:icon="@drawable/ic_magnify_black_48dp"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_generate"
+        android:icon="@drawable/ic_key_black_48dp"
+        android:title="@string/action_generate"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings_black_48dp"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

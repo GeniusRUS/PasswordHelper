@@ -19,9 +19,9 @@ import static com.genius.project.passwordhelper.MainActivity.sortTypeIn;
 
 public class SortPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    SharedPreferences.Editor editor;
-    Spinner spinner_type;
-    Spinner spinner_order;
+    private Spinner spinner_type;
+    private Spinner spinner_order;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -100,7 +100,7 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
 
         switch (i) {
             case Dialog.BUTTON_POSITIVE: {
-                editor = prefSort.edit();
+                SharedPreferences.Editor editor = prefSort.edit();
                 switch (search_type_id) {
                     case 0: {
                         sortTypeIn = "SITE";
