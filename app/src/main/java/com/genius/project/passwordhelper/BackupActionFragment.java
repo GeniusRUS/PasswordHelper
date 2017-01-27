@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.zip.CRC32;
-import java.util.zip.Checksum;
 
 public class BackupActionFragment extends DialogFragment implements DialogInterface.OnClickListener {
     private Button button_save;
@@ -168,6 +167,8 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
                     passwordDatabaseHelper.insertPass(database, strArr[0], strArr[1], strArr[2], strArr[3]);
                 }
             } catch (IOException e) {
+                String error_string = getResources().getString(R.string.backup_read_error) + e.toString();
+                Toast.makeText(context, error_string, Toast.LENGTH_SHORT).show();
                 Log.e("Exception", "File read failed: " + e.toString());
             }
             return null;

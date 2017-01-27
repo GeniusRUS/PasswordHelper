@@ -18,6 +18,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             proguardFile 'C:/Users/V1kto/AndroidStudioProjects/PasswordHelper/app/proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(output.outputFile.parent,
+                            output.outputFile.name.replace("app-release", "password-helper-2.1")
+                    )
+                }
+            }
         }
     }
 }
