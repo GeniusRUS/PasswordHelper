@@ -67,16 +67,12 @@ public class PasswordGeneratorFragment extends DialogFragment implements DialogI
                 neutral.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(countChars.getProgress() <= 0) {
-                            Toast.makeText(getActivity(), R.string.generate_zero_count_error, Toast.LENGTH_SHORT).show();
-                        } else {
-                            pass = generate(countChars.getProgress() + 6);
-                            password.setText(pass);
-                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clip = ClipData.newPlainText("copied_password", pass);
-                            clipboard.setPrimaryClip(clip);
-                            Toast.makeText(getActivity(), R.string.generate_copy_in_clipboard, Toast.LENGTH_SHORT).show();
-                        }
+                        pass = generate(countChars.getProgress() + 6);
+                        password.setText(pass);
+                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("copied_password", pass);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(getActivity(), R.string.generate_copy_in_clipboard, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

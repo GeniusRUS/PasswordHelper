@@ -105,7 +105,6 @@
     <string name="generator_header">Генерация пароля</string>
     <string name="generate_action">Сгенерировать</string>
     <string name="generator_hint">Пароль</string>
-    <string name="generate_zero_count_error">Пароль длиной в 0 знаков никому не нужен</string>
     <string name="generate_copy_in_clipboard">Скопировано в буфер обмена</string>
     <string name="action_generate">Генератор паролей</string>
     <string name="generate_symbols">" символов"</string>

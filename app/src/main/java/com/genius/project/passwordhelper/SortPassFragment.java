@@ -13,14 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
 
 public class SortPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    public final static String SORTING_ORDER = "SortingOrder";
-    public final static String SORTING_TYPE = "SortingType";
+    public final static String SORTING_TYPE = "SType";
+    public final static String SORTING_ORDER = "SOrder";
     private Spinner spinner_type;
     private Spinner spinner_order;
     private SharedPreferences preferences;
@@ -30,10 +29,12 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_sorting_pass_fragment, null);
         preferences = getActivity().getSharedPreferences(PASSHELPER_PREF, Context.MODE_PRIVATE);
+
         sortTypeIn = preferences.getString(SORTING_TYPE, "SITE");
         sortOrderIn = preferences.getString(SORTING_ORDER, "ASC");
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_sorting_pass_fragment, null);
+
         spinner_type = (Spinner) view.findViewById(R.id.sort_type);
         spinner_order = (Spinner) view.findViewById(R.id.sort_order);
 
@@ -68,17 +69,13 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                return;
-            }
+            public void onNothingSelected(AdapterView<?> parentView) {}
         });
 
         if (sortTypeIn.equals("SITE")) {
             spinner_type.setSelection(0);
-            sortOrderIn = "ASC";
         } else {
             spinner_type.setSelection(1);
-            sortOrderIn = "ASC";
         }
 
         return new AlertDialog.Builder(getActivity())                                               //реализация в виде, совместимом с API 25-
@@ -99,18 +96,16 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
     }
 
     @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
+    public void onClick(DialogInterface dialogInterface, int buttonId) {
 
         Dialog dialogForm = (Dialog) dialogInterface;
         spinner_type = (Spinner) dialogForm.findViewById(R.id.sort_type);
         spinner_order = (Spinner) dialogForm.findViewById(R.id.sort_order);
-        int search_type_id = spinner_type.getSelectedItemPosition();
-        int search_order_id = spinner_order.getSelectedItemPosition();
 
-        switch (i) {
+        switch (buttonId) {
             case Dialog.BUTTON_POSITIVE: {
                 SharedPreferences.Editor editor = preferences.edit();
-                switch (search_type_id) {
+                switch (spinner_type.getSelectedItemPosition()) {
                     case 0: {
                         sortTypeIn = "SITE";
                         editor.putString(SORTING_TYPE, "SITE");
@@ -123,7 +118,7 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
                     }
                 }
 
-                switch (search_order_id) {
+                switch (spinner_order.getSelectedItemPosition()) {
                     case 0: {
                         sortOrderIn = "ASC";
                         editor.putString(SORTING_ORDER, "ASC");

@@ -98,13 +98,12 @@
     <string name="backup_read_comlete">Database updated with backup file</string>
     <string name="backup_info_crc">"CRC-summ: "</string>
     <string name="backup_info_date_changed">"Date changed is: "</string>
-    <string name="keyguard_manager_header">Verify youself</string>
+    <string name="keyguard_manager_header">Verify yourself</string>
     <string name="keyguard_manager_description">Try gain a access to storage</string>
     <string name="backup_info_name">"Name of copy: "</string>
     <string name="generator_header">Generate pass</string>
     <string name="generate_action">Generate</string>
     <string name="generator_hint">Password</string>
-    <string name="generate_zero_count_error">Count can\'t be a zero</string>
     <string name="generate_copy_in_clipboard">Copied in clipboard</string>
     <string name="action_generate">Generate pass</string>
     <string name="generate_symbols">" symbols"</string>
