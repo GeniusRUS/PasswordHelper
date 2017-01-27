@@ -30,7 +30,6 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -54,6 +53,8 @@ import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECURITY_ENABLE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECONDS_AUTH;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_THEME;
+import static com.genius.project.passwordhelper.SortPassFragment.SORTING_ORDER;
+import static com.genius.project.passwordhelper.SortPassFragment.SORTING_TYPE;
 
 public class MainActivity extends AppCompatActivity implements ConfirmAction.ConfirmDialogListener, SwipeRefreshLayout.OnRefreshListener{
 
@@ -73,14 +74,11 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
     private ListView listViewPasswords;
     private FloatingActionButton fab;
     private int selectedItemId;
-    public static String sortTypeIn;
-    public static String sortOrderIn;
-    public static SharedPreferences prefSort;
 
     public String sort() {
         StringBuilder sort = new StringBuilder();
-        sortTypeIn = prefSort.getString("SortingType", "SITE");
-        sortOrderIn = prefSort.getString("SortingOrder", "ASC");
+        String sortTypeIn = preferences.getString(SORTING_TYPE, "SITE");
+        String sortOrderIn = preferences.getString(SORTING_ORDER, "ASC");
 
         if (sortTypeIn.equals("SITE")) {
             sort.append("SITE");
@@ -214,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         preferences = getSharedPreferences(PASSHELPER_PREF, Context.MODE_PRIVATE);
-        prefSort = getSharedPreferences("PrefSort", Context.MODE_PRIVATE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean security_enable = preferences.getBoolean(PASSHELPER_SECURITY_ENABLE, false);
             authenticationDurationSeconds = preferences.getInt(PASSHELPER_SECONDS_AUTH, 30);

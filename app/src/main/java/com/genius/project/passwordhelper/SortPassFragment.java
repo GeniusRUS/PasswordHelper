@@ -3,6 +3,7 @@ package com.genius.project.passwordhelper;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,21 +13,26 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import static com.genius.project.passwordhelper.MainActivity.prefSort;
-import static com.genius.project.passwordhelper.MainActivity.sortOrderIn;
-import static com.genius.project.passwordhelper.MainActivity.sortTypeIn;
+import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
 
 public class SortPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
+    public final static String SORTING_ORDER = "SortingOrder";
+    public final static String SORTING_TYPE = "SortingType";
     private Spinner spinner_type;
     private Spinner spinner_order;
+    private SharedPreferences preferences;
+    private String sortTypeIn;
+    private String sortOrderIn;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        sortTypeIn = prefSort.getString("SortingType", "");
-        sortOrderIn = prefSort.getString("SortingOrder", "");
+        preferences = getActivity().getSharedPreferences(PASSHELPER_PREF, Context.MODE_PRIVATE);
+        sortTypeIn = preferences.getString(SORTING_TYPE, "SITE");
+        sortOrderIn = preferences.getString(SORTING_ORDER, "ASC");
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_sorting_pass_fragment, null);
         spinner_type = (Spinner) view.findViewById(R.id.sort_type);
         spinner_order = (Spinner) view.findViewById(R.id.sort_order);
@@ -34,23 +40,30 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
         spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String[] type;
                 switch (position) {
                     case 0: {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
-                        android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.sort_order_alpha));
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        adapter.notifyDataSetChanged();
-                        spinner_order.setAdapter(adapter);
+                        type = getResources().getStringArray(R.array.sort_order_alpha);
                         break;
                     }
                     case 1: {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
-                        android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.sort_order_date));
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        adapter.notifyDataSetChanged();
-                        spinner_order.setAdapter(adapter);
+                        type = getResources().getStringArray(R.array.sort_order_date);
                         break;
                     }
+                    default: {
+                        type = getResources().getStringArray(R.array.sort_order_alpha);
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                        android.R.layout.simple_spinner_item, type);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        adapter.notifyDataSetChanged();
+                spinner_order.setAdapter(adapter);
+
+                if(sortOrderIn.equals("ASC")) {
+                    spinner_order.setSelection(0);
+                } else {
+                    spinner_order.setSelection(1);
                 }
             }
 
@@ -60,16 +73,12 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
             }
         });
 
-        if(sortTypeIn.equals("SITE")) {
+        if (sortTypeIn.equals("SITE")) {
             spinner_type.setSelection(0);
+            sortOrderIn = "ASC";
         } else {
             spinner_type.setSelection(1);
-        }
-
-        if(sortOrderIn.equals("ASC")) {
-            spinner_order.setSelection(0);
-        } else {
-            spinner_order.setSelection(1);
+            sortOrderIn = "ASC";
         }
 
         return new AlertDialog.Builder(getActivity())                                               //реализация в виде, совместимом с API 25-
@@ -100,16 +109,16 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
 
         switch (i) {
             case Dialog.BUTTON_POSITIVE: {
-                SharedPreferences.Editor editor = prefSort.edit();
+                SharedPreferences.Editor editor = preferences.edit();
                 switch (search_type_id) {
                     case 0: {
                         sortTypeIn = "SITE";
-                        editor.putString("SortingType", "SITE");
+                        editor.putString(SORTING_TYPE, "SITE");
                         break;
                     }
                     case 1: {
                         sortTypeIn = "DATE";
-                        editor.putString("SortingType", "_id");
+                        editor.putString(SORTING_TYPE, "_id");
                         break;
                     }
                 }
@@ -117,12 +126,12 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
                 switch (search_order_id) {
                     case 0: {
                         sortOrderIn = "ASC";
-                        editor.putString("SortingOrder", "ASC");
+                        editor.putString(SORTING_ORDER, "ASC");
                         break;
                     }
                     case 1: {
                         sortOrderIn = "DESC";
-                        editor.putString("SortingOrder", "DESC");
+                        editor.putString(SORTING_ORDER, "DESC");
                         break;
                     }
                 }

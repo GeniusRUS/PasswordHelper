@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.ConfirmWipeListener{
 
-    public static final String PASSHELPER_PREF = "SecPref";
+    public static final String PASSHELPER_PREF = "MainPreferences";
     public static final String PASSHELPER_SECURITY_ENABLE = "SecEnab";
     public static final String PASSHELPER_SECONDS_AUTH = "SecSecAuth";
     public static final String PASSHELPER_THEME = "isBlackTheme";
