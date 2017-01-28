@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn org.apache.commons.beanutils.**
+-dontwarn java.beans.**
+-dontwarn java.awt.**
+-dontwarn javax.swing.**

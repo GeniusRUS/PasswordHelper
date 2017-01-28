@@ -18,20 +18,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.zip.CRC32;
+
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
 
 public class BackupActionFragment extends DialogFragment implements DialogInterface.OnClickListener {
     private Button button_save;
@@ -39,7 +42,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
     private Button button_info;
     private Button button_delete;
     private Context context;
-    private String filename = "BackupPasswords.txt";
+    private String filename = "BackupPasswords.csv";
     private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
 
     @Override
@@ -119,6 +122,53 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         }
     }
 
+    class backupSave extends AsyncTask<Void, Integer, Void> {
+        SQLiteDatabase database;
+        CSVWriter csvWrite;
+        Cursor curCSV;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            button_save.setClickable(false);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voidArr) {
+            try {
+                csvWrite = new CSVWriter(new FileWriter(file));
+                database = new PasswordDatabaseHelper(context).getReadableDatabase();
+                curCSV = database.query(CNST_DB, new String[]{"SITE", "LOGIN", "PASS", "INFO"}, null, null, null, null, null);
+                while(curCSV.moveToNext())
+                {
+                    publishProgress(1);
+                    String arrStr[] ={curCSV.getString(0),curCSV.getString(1), curCSV.getString(2), curCSV.getString(3)};
+                    csvWrite.writeNext(arrStr);
+                }
+                csvWrite.close();
+            } catch (IOException e) {
+                Log.e("Exception", "File write failed: " + e.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voidR) {
+            super.onPostExecute(voidR);
+            Toast.makeText(context, getResources().getString(R.string.backup_save_complete), Toast.LENGTH_SHORT).show();
+            button_save.setClickable(true);
+            button_save.setText(R.string.backup_create);
+            curCSV.close();
+            database.close();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... numArr) {
+            super.onProgressUpdate(numArr);
+            button_save.setText(getResources().getText(R.string.backup_indicate_prog) + " " + numArr[0]);
+        }
+    }
+
     class backupRead extends AsyncTask<Void, Integer, Void> {
         SQLiteDatabase database;
         PasswordDatabaseHelper passwordDatabaseHelper;
@@ -133,43 +183,24 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         protected Void doInBackground(Void... voids) {
             int i = 0;
             try {
-                String[] strArr = new String[4];
                 passwordDatabaseHelper = new PasswordDatabaseHelper(context);
                 database = passwordDatabaseHelper.getWritableDatabase();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename)), "UTF8"));
-                while (bufferedReader.ready()) {
-                    publishProgress(++i);
-                    String[] string_temp = bufferedReader.readLine().split(" :/:");
-                    if (string_temp.length == 1) {
-                        strArr[0] = string_temp[0].replace(" :/:", "").trim();
-                        strArr[1] = "";
-                        strArr[2] = "";
-                        strArr[3] = "";
+                String next[] = {};
+
+                CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename)), "UTF8"));
+                for(;;) {
+                    next = reader.readNext();
+                    if(next != null) {
+                        publishProgress(++i);
+                        passwordDatabaseHelper.insertPass(database, next[0], next[1], next[2], next[3]);
+                    } else {
+                        break;
                     }
-                    if (string_temp.length == 2) {
-                        strArr[0] = string_temp[0].trim();
-                        strArr[1] = string_temp[1].replace(" :/:", "").trim();
-                        strArr[2] = "";
-                        strArr[3] = "";
-                    }
-                    if (string_temp.length == 3) {
-                        strArr[0] = string_temp[0].trim();
-                        strArr[1] = string_temp[1].trim();
-                        strArr[2] = string_temp[2].replace(" :/:", "").trim();
-                        strArr[3] = "";
-                    }
-                    if (string_temp.length == 4) {
-                        strArr[0] = string_temp[0].trim();
-                        strArr[1] = string_temp[1].trim();
-                        strArr[2] = string_temp[2].trim();
-                        strArr[3] = string_temp[3].replace(" :/:", "").trim();
-                    }
-                    passwordDatabaseHelper.insertPass(database, strArr[0], strArr[1], strArr[2], strArr[3]);
                 }
             } catch (IOException e) {
                 String error_string = getResources().getString(R.string.backup_read_error) + e.toString();
                 Toast.makeText(context, error_string, Toast.LENGTH_SHORT).show();
-                Log.e("Exception", "File read failed: " + e.toString());
+                Log.e("READ EXCEPTION", "Error: " + e.toString());
             }
             return null;
         }
@@ -192,51 +223,6 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         }
     }
 
-    class backupSave extends AsyncTask<Void, Integer, Void> {
-        SQLiteDatabase database;
-        Cursor cursor;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            button_save.setClickable(false);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voidArr) {
-            try {
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename)), "UTF8"));
-                database = new PasswordDatabaseHelper(context).getReadableDatabase();
-                cursor = database.query("DATAPASS", new String[]{"SITE", "LOGIN", "PASS", "INFO"}, null, null, null, null, null);
-                while (cursor.moveToNext()) {
-                    publishProgress(1);
-                    bufferedWriter.write(cursor.getString(0) + " :/: " + cursor.getString(1) + " :/: " + cursor.getString(2) + " :/: " + cursor.getString(3) + "\n");
-                    bufferedWriter.flush();
-                }
-                bufferedWriter.close();
-            } catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void voidR) {
-            super.onPostExecute(voidR);
-            Toast.makeText(context, getResources().getString(R.string.backup_save_complete), Toast.LENGTH_SHORT).show();
-            button_save.setClickable(true);
-            button_save.setText(R.string.backup_create);
-            database.close();
-            cursor.close();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... numArr) {
-            super.onProgressUpdate(numArr);
-            button_save.setText(getResources().getText(R.string.backup_indicate_prog) + " " + numArr[0]);
-        }
-    }
-
     class backupInfo extends AsyncTask<Void, Void, Void> {
         SQLiteDatabase database;
         PasswordDatabaseHelper passwordHepler;
@@ -255,7 +241,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
                 InputStream stream = new FileInputStream(file);
                 InputStream stream_crc = new FileInputStream(file);
                 name = file.getName();
-                crc_hash = BackupActionFragment.CRC32(stream_crc);
+                crc_hash = CRC32(stream_crc);
                 Reader inputStreamReader = new InputStreamReader(stream, "UTF8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 this.date = new Date(file.lastModified());
@@ -319,7 +305,7 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
         button_delete.setActivated(isEnable);
     }
 
-    private static long CRC32(InputStream in) throws IOException {
+    private long CRC32(InputStream in) throws IOException {
         int gByte = 0;
         CRC32 gCRC = new CRC32();
         while ((gByte = in.read()) != -1) {
