@@ -2,9 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
+        config {
+            storeFile file('C:/Users/V1kto/Documents/GeniusKey.jks')
+        }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.genius.project.passwordhelper"
         minSdkVersion 21
@@ -15,7 +18,6 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             proguardFile 'C:/Users/V1kto/AndroidStudioProjects/PasswordHelper/app/proguard-rules.pro'
             applicationVariants.all { variant ->
@@ -26,6 +28,8 @@ android {
                 }
             }
         }
+    }
+    productFlavors {
     }
 }
 

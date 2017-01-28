@@ -102,7 +102,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         themeSwitch.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("theme_switch", true)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean("theme_switch", false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_THEME, true);
                     editor.apply();
@@ -126,7 +126,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         screenshot_protect.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("screenshot_protect", true)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean("screenshot_protect", false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SCREEN_DEFENCE, true);
                     editor.apply();
@@ -154,7 +154,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         securityEnable.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("security_enabler", true)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean("security_enabler", false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, true);
                     editor.apply();

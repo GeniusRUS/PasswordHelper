@@ -43,7 +43,7 @@
         android:hint="@string/security_second_hint"
         android:title="@string/security_pin_settings"
         android:key="preference_auth_time"
-        android:icon="@drawable/ic_lock_white_24dp"
+        android:icon="@drawable/ic_timelapse_white_24dp"
         android:dependency="security_enabler"
         android:summary="@string/security_pin_settings_summary"
         android:defaultValue="30"
