@@ -135,14 +135,14 @@ public class BackupActionFragment extends DialogFragment implements DialogInterf
 
         @Override
         protected Void doInBackground(Void... voidArr) {
+            int i = 0;
             try {
                 csvWrite = new CSVWriter(new FileWriter(file));
                 database = new PasswordDatabaseHelper(context).getReadableDatabase();
                 curCSV = database.query(CNST_DB, new String[]{"SITE", "LOGIN", "PASS", "INFO"}, null, null, null, null, null);
-                while(curCSV.moveToNext())
-                {
-                    publishProgress(1);
-                    String arrStr[] ={curCSV.getString(0),curCSV.getString(1), curCSV.getString(2), curCSV.getString(3)};
+                while(curCSV.moveToNext()) {
+                    publishProgress(++i);
+                    String arrStr[] = {curCSV.getString(0),curCSV.getString(1), curCSV.getString(2), curCSV.getString(3)};
                     csvWrite.writeNext(arrStr);
                 }
                 csvWrite.close();
