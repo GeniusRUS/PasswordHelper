@@ -62,7 +62,7 @@
     <string name="darkThemeOn">Полезно для AMOLED экранов</string>
     <string name="darkTheme">Тёмная тема</string>
     <string name="about_settings_summary">Немного информации</string>
-    <string name="about_desc">Лёгкое и быстрое хранилище паролей Genius © 2016-2017</string>
+    <string name="about_desc">Лёгкое и быстрое хранилище паролей by Genius v.2.1</string>
     <string name="info_settings">О приложении</string>
     <string name="security_switch_settings">Включить защиту</string>
     <string name="security_enable">Исключить неавторизованный доступ</string>
@@ -110,4 +110,6 @@
     <string name="generate_symbols">" символов"</string>
     <string name="sort_action_summary">Быстро находите нужные значения</string>
     <string name="backup_read_error">"Ошибка при создании бэкапа: "</string>
+    <string name="security_screenshot_protect_title">Защита от скриншота</string>
+    <string name="security_screenshot_protect_summary">Может ограничить некоторые системные функции</string>
 </resources>

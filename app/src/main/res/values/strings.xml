@@ -109,4 +109,6 @@
     <string name="generate_symbols">" symbols"</string>
     <string name="sort_action_summary">Quickly be guided to the list</string>
     <string name="backup_read_error">"Error while reading backup: "</string>
+    <string name="security_screenshot_protect_title">Screenshot protect</string>
+    <string name="security_screenshot_protect_summary">May restrict some system functions</string>
 </resources>

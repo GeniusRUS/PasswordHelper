@@ -26,10 +26,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -50,6 +52,7 @@ import javax.crypto.SecretKey;
 
 import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
+import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SCREEN_DEFENCE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECURITY_ENABLE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECONDS_AUTH;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_THEME;
@@ -236,6 +239,12 @@ public class MainActivity extends AppCompatActivity implements ConfirmAction.Con
         setContentView(R.layout.activity_main);
         Toolbar toolbar_white_buttons = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar_white_buttons);
+
+        if(preferences.getBoolean(PASSHELPER_SCREEN_DEFENCE, false)) {                              //после отрисовки setContentView позволяет деласть превьюшки "недавним приложениям"
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
 
         dialogAddPass = new AddPassFragment();
 

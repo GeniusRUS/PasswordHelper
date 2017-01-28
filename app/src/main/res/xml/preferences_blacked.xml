@@ -28,6 +28,12 @@
         android:title="@string/security_header" />
     <SwitchPreference
         android:defaultValue="false"
+        android:title="@string/security_screenshot_protect_title"
+        android:summary="@string/security_screenshot_protect_summary"
+        android:icon="@drawable/ic_cellphone_android_white_24dp"
+        android:key="screenshot_protect" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:title="@string/security_switch_settings"
         android:summaryOff="@string/security_enable"
         android:summaryOn="@string/security_disable"

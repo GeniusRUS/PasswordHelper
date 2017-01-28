@@ -27,6 +27,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
     public static final String PASSHELPER_SECURITY_ENABLE = "SecEnab";
     public static final String PASSHELPER_SECONDS_AUTH = "SecSecAuth";
     public static final String PASSHELPER_THEME = "isBlackTheme";
+    public static final String PASSHELPER_SCREEN_DEFENCE = "SS_disable";
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private SharedPreferences preferences;
 
@@ -121,17 +122,21 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference buttonAbout = getPreferenceManager().findPreference("preference_about_button");
-        buttonAbout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference screenshot_protect = getPreferenceManager().findPreference("screenshot_protect");
+        screenshot_protect.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog.Builder info = new AlertDialog.Builder(SettingsActivity.this);
-                info.setTitle(R.string.app_name)
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setMessage(R.string.about_desc);
-                AlertDialog infoDialog = info.create();
-                infoDialog.show();
-                return true;
+                if(getPreferenceManager().getSharedPreferences().getBoolean("screenshot_protect", true)) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(PASSHELPER_SCREEN_DEFENCE, true);
+                    editor.apply();
+                    return true;
+                } else {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(PASSHELPER_SCREEN_DEFENCE, false);
+                    editor.apply();
+                    return false;
+                }
             }
         });
 
@@ -156,7 +161,6 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                     Toast.makeText(SettingsActivity.this, getResources().getString(R.string.security_enabled), Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
-
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, false);
                     editor.apply();
@@ -191,6 +195,20 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                     editor.putInt(PASSHELPER_SECONDS_AUTH, timer);
                     editor.apply();
                     return true;
+            }
+        });
+
+        Preference buttonAbout = getPreferenceManager().findPreference("preference_about_button");
+        buttonAbout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog.Builder info = new AlertDialog.Builder(SettingsActivity.this);
+                info.setTitle(R.string.app_name)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setMessage(R.string.about_desc);
+                AlertDialog infoDialog = info.create();
+                infoDialog.show();
+                return true;
             }
         });
     }
