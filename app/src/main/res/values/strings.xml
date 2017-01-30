@@ -61,7 +61,7 @@
     <string name="darkThemeOff">Disable dark theme</string>
     <string name="darkTheme">Dark theme</string>
     <string name="about_settings_summary">Some information</string>
-    <string name="about_desc">Light and fast password storage Genius © 2016</string>
+    <string name="about_desc">Light and fast password storage by Genius v.2.2</string>
     <string name="info_settings">Info</string>
     <string name="security_switch_settings">Security enabler</string>
     <string name="security_enable">Prevent unautorized access</string>
@@ -74,11 +74,7 @@
     <string name="search_request_is_empty">Request is empty. Search cancelled</string>
     <string name="search_result_is">Search completed. Items found:</string>
     <string name="search_result_is_null">Search can\'t find elements</string>
-    <string name="keystore_keys_invalidated">Keys are invalidated after created. Retry the purchase</string>
     <string name="security_second_hint">Value in seconds (1-59 s.)</string>
-    <string name="security_enabled">Security enabled</string>
-    <string name="security_disabled">Security disabled</string>
-    <string name="security_not_set">Your device is not secured</string>
     <string name="sort_action">Sorting</string>
     <string name="sort_header">Sort items</string>
     <string name="sort_button">Sort</string>
@@ -111,4 +107,16 @@
     <string name="backup_read_error">"Error while reading backup: "</string>
     <string name="security_screenshot_protect_title">Screenshot protect</string>
     <string name="security_screenshot_protect_summary">May restrict some system functions</string>
+    <string name="forgot_pin">Forgot pin?</string>
+    <string name="forgot_message">It\'s not scary. But it is necessary completely reset the app to use them</string>
+
+    <string name="pin_code_forgot_text">Forgot?</string>
+    <string name="pin_code_step_disable">Disable %d-digit Pincode</string>
+    <string name="pin_code_step_create">Create a %d-digit Pincode</string>
+    <string name="pin_code_step_change">Enter your current %d-digit Pincode</string>
+    <string name="pin_code_step_unlock">Enter your %d-digit Pincode</string>
+    <string name="pin_code_step_enable_confirm">Confirm your %d-digit Pincode</string>
+    <string name="pin_code_fingerprint_text">Fingerprint</string>
+    <string name="pin_code_fingerprint_success">Fingerprint recognized</string>
+    <string name="pin_code_fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
 </resources>

@@ -38,7 +38,7 @@ class PasswordDatabaseHelper extends SQLiteOpenHelper {
                     + "INFO TEXT);");
         }
         if(oldVersion < 2) {
-            database.execSQL("ALTER TABLE DATAPASS ADD COLUMN LOGIN TEXT");
+            database.execSQL("ALTER TABLE " + CNST_DB + " ADD COLUMN LOGIN TEXT");
         }
     }
 

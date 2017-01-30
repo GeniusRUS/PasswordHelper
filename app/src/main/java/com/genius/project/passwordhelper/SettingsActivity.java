@@ -3,7 +3,6 @@ package com.genius.project.passwordhelper;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +19,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import com.github.orangegangsters.lollipin.lib.managers.LockManager;
+
+import static com.genius.project.passwordhelper.MainActivity.lockManager;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+
 
 public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.ConfirmWipeListener{
 
@@ -34,7 +38,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
     public void dropDatabase() {
         SQLiteOpenHelper databaseHelper = new PasswordDatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        database.delete("DATAPASS", null, null);
+        database.delete(CNST_DB, null, null);
         this.finish();
     }
 
@@ -143,14 +147,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         Preference securityEnable = getPreferenceManager().findPreference("security_enabler");
         SwitchPreference secEnSw = (SwitchPreference) getPreferenceScreen().findPreference("security_enabler");
         secEnSw.setChecked(preferences.getBoolean(PASSHELPER_SECURITY_ENABLE, false));
-        KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {                                        //проверка на API < 23
-            secEnSw.setEnabled(false);
-        } else {
-            if (!mKeyguardManager.isKeyguardSecure()) {
-                secEnSw.setEnabled(false);
-            }
-        }
+
         securityEnable.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -158,13 +155,12 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, true);
                     editor.apply();
-                    Toast.makeText(SettingsActivity.this, getResources().getString(R.string.security_enabled), Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
+                    lockManager.getAppLock().disableAndRemoveConfiguration();
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, false);
                     editor.apply();
-                    Toast.makeText(SettingsActivity.this, getResources().getString(R.string.security_disabled), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -176,7 +172,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             public boolean onPreferenceChange(Preference preference, Object o) {
                 SharedPreferences.Editor editor = preferences.edit();
                 String timerString;
-                int timer;
+                long timer;
                 try {
                     timerString = preference_auth_time.getText();
                     if (timerString.isEmpty()) {
@@ -184,7 +180,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                     }
                     timer = Integer.parseInt(timerString);
                     if (timer <= 0) {
-                        timer = 1;
+                        timer = 10;
                     }
                     if (timer >= 60) {
                         timer = 59;
@@ -192,7 +188,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
                 } catch (IllegalArgumentException e) {
                     timer = 30;
                 }
-                    editor.putInt(PASSHELPER_SECONDS_AUTH, timer);
+                    editor.putLong(PASSHELPER_SECONDS_AUTH, timer * 1000);
                     editor.apply();
                     return true;
             }

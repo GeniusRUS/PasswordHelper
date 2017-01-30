@@ -65,6 +65,7 @@ public class AddPassFragment extends DialogFragment implements DialogInterface.O
                     View fab = getActivity().findViewById(R.id.fab);
                     Snackbar.make(fab, R.string.siteEmptyState, Snackbar.LENGTH_LONG)      //вывод снакбара
                             .setAction("Action", null).show();
+                    database.close();
                     break;
                 } else {
                     if (siteForm.getText().toString().equals("")) {
@@ -79,9 +80,9 @@ public class AddPassFragment extends DialogFragment implements DialogInterface.O
                     backDb.execute();                                                               //записывающего новые значения в БД
                     dialogForm.dismiss();
                     main.updateMainList(true);
+                    database.close();
                     break;
                 }
-
             }
 
             case Dialog.BUTTON_NEGATIVE: {

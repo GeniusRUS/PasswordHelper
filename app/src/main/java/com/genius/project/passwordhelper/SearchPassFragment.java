@@ -26,6 +26,9 @@ import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
 
 public class SearchPassFragment extends DialogFragment implements DialogInterface.OnClickListener{
 
+    private SQLiteDatabase DBSearch;
+    private Cursor cursorSearch;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity())                                               //реализация в виде, совместимом с API 25-
@@ -83,8 +86,8 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                     if(!search_request.equals("")) {
                         ListView listViewPasswords = (ListView) getActivity().findViewById(R.id.listPasswords);     //заполнение ListView
                             SQLiteOpenHelper helperSearch = new PasswordDatabaseHelper(getActivity());              //вызывается после каждой операции ввода/удаления/изменения
-                            SQLiteDatabase DBSearch = helperSearch.getReadableDatabase();
-                            Cursor cursorSearch = DBSearch.query(CNST_DB,
+                            DBSearch = helperSearch.getReadableDatabase();
+                            cursorSearch = DBSearch.query(CNST_DB,
                                 new String[]{"_id", "SITE"},
                                 "upper(" + search_type_string + ") LIKE ?",                            //регистронезависимый поиск
                                 new String[]{'%' + search_request.toUpperCase() + '%'}, null, null, null);
@@ -102,12 +105,14 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                             Snackbar.make(fab, getResources().getString(R.string.search_result_is) + " " + cursor_out,
                                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             floatingActionButton.hide();
+                            cursorSearch.close();
                             DBSearch.close();
                             break;
                         } else {
                             dialogForm.dismiss();
                             Snackbar.make(fab, getResources().getString(R.string.search_result_is_null),
                                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            cursorSearch.close();
                             DBSearch.close();
                             break;
                         }
