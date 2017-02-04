@@ -16,6 +16,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.ID;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.INFO;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.LOGIN;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.PASS;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.SITE;
 
 public class EditPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
@@ -37,7 +42,7 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
 
         SQLiteOpenHelper passHelper = new PasswordDatabaseHelper(getActivity());
         SQLiteDatabase database = passHelper.getReadableDatabase();
-        Cursor cursor = database.query(CNST_DB, new String[]{"SITE", "LOGIN", "PASS", "INFO"}, "_id = ?", new String[]{itemId}, null, null, null);
+        Cursor cursor = database.query(CNST_DB, new String[]{SITE, LOGIN, PASS, INFO}, ID + " = ?", new String[]{itemId}, null, null, null);
 
         if(cursor.moveToFirst()) {
             siteView = (EditText) view.findViewById(R.id.site_editable);
@@ -98,10 +103,10 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
                     if (siteView.getText().toString().equals("")) {
                         siteView.setText(R.string.siteEmpty);
                     }
-                    updatedValues.put("SITE", siteView.getText().toString());
-                    updatedValues.put("LOGIN", loginView.getText().toString());
-                    updatedValues.put("PASS", passView.getText().toString());
-                    updatedValues.put("INFO", infoView.getText().toString());
+                    updatedValues.put(SITE, siteView.getText().toString());
+                    updatedValues.put(LOGIN, loginView.getText().toString());
+                    updatedValues.put(PASS, passView.getText().toString());
+                    updatedValues.put(INFO, infoView.getText().toString());
 
                     EditPassFragment.backDb backDb = new EditPassFragment.backDb();                 //вызов асинхронного класса
                     backDb.execute();                                                               //записывающего новые значения в БД
@@ -121,7 +126,7 @@ public class EditPassFragment extends DialogFragment implements DialogInterface.
                                                                                                     //для записи обновленного пароля
         @Override
         protected Boolean doInBackground(Void... Void) {
-            database.update("DATAPASS", updatedValues, "_id = ?", new String[]{itemId});
+            database.update(CNST_DB, updatedValues, ID + " = ?", new String[]{itemId});
             return true;
         }
     }

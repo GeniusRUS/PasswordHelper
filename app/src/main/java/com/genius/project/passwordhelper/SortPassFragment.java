@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.ID;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.SITE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
 
 public class SortPassFragment extends DialogFragment implements DialogInterface.OnClickListener {
@@ -72,7 +74,7 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
             public void onNothingSelected(AdapterView<?> parentView) {}
         });
 
-        if (sortTypeIn.equals("SITE")) {
+        if (sortTypeIn.equals(SITE)) {
             spinner_type.setSelection(0);
         } else {
             spinner_type.setSelection(1);
@@ -107,13 +109,13 @@ public class SortPassFragment extends DialogFragment implements DialogInterface.
                 SharedPreferences.Editor editor = preferences.edit();
                 switch (spinner_type.getSelectedItemPosition()) {
                     case 0: {
-                        sortTypeIn = "SITE";
-                        editor.putString(SORTING_TYPE, "SITE");
+                        sortTypeIn = SITE;
+                        editor.putString(SORTING_TYPE, SITE);
                         break;
                     }
                     case 1: {
                         sortTypeIn = "DATE";
-                        editor.putString(SORTING_TYPE, "_id");
+                        editor.putString(SORTING_TYPE, ID);
                         break;
                     }
                 }

@@ -12,6 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.ID;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.INFO;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.LOGIN;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.PASS;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.SITE;
+
 public class DetailPassFragment extends DialogFragment {
 
     @Override
@@ -23,7 +30,7 @@ public class DetailPassFragment extends DialogFragment {
 
         SQLiteOpenHelper passHelper = new PasswordDatabaseHelper(getActivity());
         SQLiteDatabase database = passHelper.getReadableDatabase();
-        Cursor cursor = database.query("DATAPASS", new String[]{"SITE", "LOGIN", "PASS", "INFO"}, "_id = ?", new String[]{Long.toString(id)}, null, null, null);
+        Cursor cursor = database.query(CNST_DB, new String[]{SITE, LOGIN, PASS, INFO}, ID + " = ?", new String[]{Long.toString(id)}, null, null, null);
 
         if(cursor.moveToFirst()) {
             TextView siteView = (TextView) view.findViewById(R.id.site_show);

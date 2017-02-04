@@ -22,6 +22,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
 import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.ID;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.INFO;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.LOGIN;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.PASS;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.SITE;
 
 
 public class SearchPassFragment extends DialogFragment implements DialogInterface.OnClickListener{
@@ -63,19 +68,19 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
 
         switch (search_type_id) {
             case 0: {
-                search_type_string = "SITE";
+                search_type_string = SITE;
                 break;
             }
             case 1: {
-                search_type_string = "LOGIN";
+                search_type_string = LOGIN;
                 break;
             }
             case 2: {
-                search_type_string = "PASS";
+                search_type_string = PASS;
                 break;
             }
             case 3: {
-                search_type_string = "INFO";
+                search_type_string = INFO;
                 break;
             }
         }
@@ -88,7 +93,7 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                             SQLiteOpenHelper helperSearch = new PasswordDatabaseHelper(getActivity());              //вызывается после каждой операции ввода/удаления/изменения
                             DBSearch = helperSearch.getReadableDatabase();
                             cursorSearch = DBSearch.query(CNST_DB,
-                                new String[]{"_id", "SITE"},
+                                new String[]{ID, SITE},
                                 "upper(" + search_type_string + ") LIKE ?",                            //регистронезависимый поиск
                                 new String[]{'%' + search_request.toUpperCase() + '%'}, null, null, null);
                             cursor_out = cursorSearch.getCount();
@@ -97,7 +102,7 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                             CursorAdapter cursorSearchAdapter = new SimpleCursorAdapter(getActivity().getBaseContext(),
                                     android.R.layout.simple_list_item_1,
                                     cursorSearch,
-                                    new String[]{"SITE"},
+                                    new String[]{SITE},
                                     new int[]{android.R.id.text1}, 0);
                             listViewPasswords.setAdapter(cursorSearchAdapter);
 
@@ -105,15 +110,11 @@ public class SearchPassFragment extends DialogFragment implements DialogInterfac
                             Snackbar.make(fab, getResources().getString(R.string.search_result_is) + " " + cursor_out,
                                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             floatingActionButton.hide();
-                            cursorSearch.close();
-                            DBSearch.close();
                             break;
                         } else {
                             dialogForm.dismiss();
                             Snackbar.make(fab, getResources().getString(R.string.search_result_is_null),
                                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            cursorSearch.close();
-                            DBSearch.close();
                             break;
                         }
                     } else {

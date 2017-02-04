@@ -14,6 +14,11 @@ class PasswordDatabaseHelper extends SQLiteOpenHelper {
     static final String CNST_DB = "DATAPASS";
     private static final String DB_NAME = "passwords";
     private static final int DB_VERSION = 1;
+    static final String ID = "_id";
+    static final String SITE = "SITE";
+    static final String LOGIN = "LOGIN";
+    static final String PASS = "PASS";
+    static final String INFO = "INFO";
 
     PasswordDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -32,13 +37,13 @@ class PasswordDatabaseHelper extends SQLiteOpenHelper {
     private void updateDatabase(SQLiteDatabase database, int oldVersion, int newVersion) {
         if(oldVersion < 1) {
             database.execSQL("CREATE TABLE " + CNST_DB + " ("
-                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "SITE TEXT, "
-                    + "PASS TEXT, "
-                    + "INFO TEXT);");
+                    + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + SITE + " TEXT, "
+                    + PASS + " TEXT, "
+                    + INFO + " TEXT);");
         }
         if(oldVersion < 2) {
-            database.execSQL("ALTER TABLE " + CNST_DB + " ADD COLUMN LOGIN TEXT");
+            database.execSQL("ALTER TABLE " + CNST_DB + " ADD COLUMN " + LOGIN + " TEXT");
         }
     }
 
@@ -48,10 +53,10 @@ class PasswordDatabaseHelper extends SQLiteOpenHelper {
                     String pass,
                     String info) {
         ContentValues tempContentData = new ContentValues();
-        tempContentData.put("SITE", site);
-        tempContentData.put("LOGIN", login);
-        tempContentData.put("PASS", pass);
-        tempContentData.put("INFO", info);
+        tempContentData.put(SITE, site);
+        tempContentData.put(LOGIN, login);
+        tempContentData.put(PASS, pass);
+        tempContentData.put(INFO, info);
         database.insert(CNST_DB, null, tempContentData);
     }
 }

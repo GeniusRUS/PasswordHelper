@@ -24,13 +24,14 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import com.github.orangegangsters.lollipin.lib.PinCompatActivity;
 import com.github.orangegangsters.lollipin.lib.managers.AppLock;
 import com.github.orangegangsters.lollipin.lib.managers.LockManager;
 
 import static com.genius.project.passwordhelper.PasswordDatabaseHelper.CNST_DB;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.ID;
+import static com.genius.project.passwordhelper.PasswordDatabaseHelper.SITE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_PREF;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SCREEN_DEFENCE;
 import static com.genius.project.passwordhelper.SettingsActivity.PASSHELPER_SECURITY_ENABLE;
@@ -41,7 +42,7 @@ import static com.genius.project.passwordhelper.SortPassFragment.SORTING_TYPE;
 
 public class MainActivity extends PinCompatActivity implements ConfirmAction.ConfirmDialogListener, SwipeRefreshLayout.OnRefreshListener{
 
-    public static LockManager<CustomPinActivity> lockManager;
+    static LockManager<CustomPinActivity> lockManager;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SharedPreferences preferences;
@@ -55,13 +56,13 @@ public class MainActivity extends PinCompatActivity implements ConfirmAction.Con
 
     public String sort() {
         StringBuilder sort = new StringBuilder();
-        String sortTypeIn = preferences.getString(SORTING_TYPE, "SITE");
+        String sortTypeIn = preferences.getString(SORTING_TYPE, SITE);
         String sortOrderIn = preferences.getString(SORTING_ORDER, "ASC");
 
-        if (sortTypeIn.equals("SITE")) {
-            sort.append("SITE");
+        if (sortTypeIn.equals(SITE)) {
+            sort.append(SITE);
         } else {
-            sort.append("_id");
+            sort.append(ID);
         }
         if (sortOrderIn.equals("ASC")) {
             sort.append(" ");
@@ -78,13 +79,13 @@ public class MainActivity extends PinCompatActivity implements ConfirmAction.Con
         try{                                                                                        //вызывается после каждой операции ввода/удаления/изменения
             dbHelper = new PasswordDatabaseHelper(this);
             dataBaseMain = dbHelper.getReadableDatabase();
-            displayMainCursor = dataBaseMain.query(CNST_DB, new String[]{"_id", "SITE"}, null, null, null, null, sort());
-            CursorAdapter cusrorDisplay = new SimpleCursorAdapter(this,
+            displayMainCursor = dataBaseMain.query(CNST_DB, new String[]{ID, SITE}, null, null, null, null, sort());
+            CursorAdapter cursorUpdate = new SimpleCursorAdapter(this,
                     android.R.layout.simple_list_item_1,
                     displayMainCursor,
-                    new String[]{"SITE"},
+                    new String[]{SITE},
                     new int[]{android.R.id.text1}, 0);
-            listViewPasswords.setAdapter(cusrorDisplay);
+            listViewPasswords.setAdapter(cursorUpdate);
             if(isShowSnackbar) {
                 Snackbar.make(fab, R.string.dataUpdated, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -103,11 +104,11 @@ public class MainActivity extends PinCompatActivity implements ConfirmAction.Con
         try{
             dbHelper = new PasswordDatabaseHelper(this);
             dataBaseMain = dbHelper.getReadableDatabase();
-            displayMainCursor = dataBaseMain.query(CNST_DB, new String[]{"_id", "SITE"}, null, null, null, null, sort());
+            displayMainCursor = dataBaseMain.query(CNST_DB, new String[]{ID, SITE}, null, null, null, null, sort());
             CursorAdapter cusrorDisplay = new SimpleCursorAdapter(this,
                     android.R.layout.simple_list_item_1,
                     displayMainCursor,
-                    new String[]{"SITE"},
+                    new String[]{SITE},
                     new int[]{android.R.id.text1}, 0);
             listViewPasswords.setAdapter(cusrorDisplay);
                 Snackbar.make(fab, R.string.dataUpdated, Snackbar.LENGTH_LONG)
@@ -222,7 +223,7 @@ public class MainActivity extends PinCompatActivity implements ConfirmAction.Con
             try {
                 SQLiteOpenHelper helperDeleter = new PasswordDatabaseHelper(MainActivity.this);
                 SQLiteDatabase database = helperDeleter.getWritableDatabase();
-                database.delete("DATAPASS", "_id = ?", new String[]{Integer.toString(selectedItemId[0])});
+                database.delete(CNST_DB, ID + " = ?", new String[]{Integer.toString(selectedItemId[0])});
                 return true;
             } catch (SQLiteException e) {
                 return false;
