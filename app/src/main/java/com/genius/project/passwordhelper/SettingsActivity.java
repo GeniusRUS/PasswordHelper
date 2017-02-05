@@ -32,6 +32,15 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
     public static final String PASSHELPER_SECONDS_AUTH = "SecSecAuth";
     public static final String PASSHELPER_THEME = "isBlackTheme";
     public static final String PASSHELPER_SCREEN_DEFENCE = "SS_disable";
+
+    static final String SETTING_SORT = "preference_sort_button";
+    static final String SETTING_BACKUP = "backup_button";
+    static final String SETTING_WIPE = "preference_wipe_button";
+    static final String SETTING_THEME = "theme_switch";
+    static final String SETTING_SCREENSHOT = "screenshot_protect";
+    static final String SETTING_SECURE = "security_enabler";
+    static final String SETTING_AUTH_TIME = "preference_auth_time";
+    static final String SETTING_ABOUT = "preference_about_button";
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private SharedPreferences preferences;
 
@@ -58,7 +67,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             addPreferencesFromResource(R.xml.preferences);
         }
 
-        Preference sort_backup = getPreferenceManager().findPreference("preference_sort_button");
+        Preference sort_backup = getPreferenceManager().findPreference(SETTING_SORT);
         sort_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -69,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
         });
 
 
-        Preference button_backup = getPreferenceManager().findPreference("backup_button");
+        Preference button_backup = getPreferenceManager().findPreference(SETTING_BACKUP);
         button_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -92,7 +101,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference buttonWipe = getPreferenceManager().findPreference("preference_wipe_button");
+        Preference buttonWipe = getPreferenceManager().findPreference(SETTING_WIPE);
         buttonWipe.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -102,11 +111,11 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference themeSwitch = getPreferenceManager().findPreference("theme_switch");
+        Preference themeSwitch = getPreferenceManager().findPreference(SETTING_THEME);
         themeSwitch.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("theme_switch", false)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean(SETTING_THEME, false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_THEME, true);
                     editor.apply();
@@ -126,11 +135,11 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference screenshot_protect = getPreferenceManager().findPreference("screenshot_protect");
+        Preference screenshot_protect = getPreferenceManager().findPreference(SETTING_SCREENSHOT);
         screenshot_protect.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("screenshot_protect", false)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean(SETTING_SCREENSHOT, false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SCREEN_DEFENCE, true);
                     editor.apply();
@@ -144,20 +153,24 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference securityEnable = getPreferenceManager().findPreference("security_enabler");
-        SwitchPreference secEnSw = (SwitchPreference) getPreferenceScreen().findPreference("security_enabler");
+        Preference securityEnable = getPreferenceManager().findPreference(SETTING_SECURE);
+        SwitchPreference secEnSw = (SwitchPreference) getPreferenceScreen().findPreference(SETTING_SECURE);
         secEnSw.setChecked(preferences.getBoolean(PASSHELPER_SECURITY_ENABLE, false));
 
         securityEnable.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(getPreferenceManager().getSharedPreferences().getBoolean("security_enabler", false)) {
+                if(getPreferenceManager().getSharedPreferences().getBoolean(SETTING_SECURE, false)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, true);
                     editor.apply();
                     return true;
                 } else {
-                    lockManager.getAppLock().disableAndRemoveConfiguration();
+                    if(lockManager.isAppLockEnabled()) {
+                        lockManager.getAppLock().disableAndRemoveConfiguration();
+                    } else {
+                        lockManager.disableAppLock();
+                    }
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PASSHELPER_SECURITY_ENABLE, false);
                     editor.apply();
@@ -166,7 +179,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        final EditTextPreference preference_auth_time = (EditTextPreference) findPreference("preference_auth_time");
+        final EditTextPreference preference_auth_time = (EditTextPreference) findPreference(SETTING_AUTH_TIME);
         preference_auth_time.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -194,7 +207,7 @@ public class SettingsActivity extends PreferenceActivity implements ConfirmWipe.
             }
         });
 
-        Preference buttonAbout = getPreferenceManager().findPreference("preference_about_button");
+        Preference buttonAbout = getPreferenceManager().findPreference(SETTING_ABOUT);
         buttonAbout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
